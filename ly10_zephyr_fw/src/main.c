@@ -161,8 +161,6 @@ void main(void)
 			memcpy(&strip_colors[i], color_at(time, i), sizeof(strip_colors[i]));
 
 			}
-
-			printk("time %d\n", time);
 			led_strip_update_rgb(strip, strip_colors, STRIP_NUM_LEDS);
 			k_sleep(DELAY_TIME);
 			time++;
