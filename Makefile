@@ -26,3 +26,5 @@ docker:
 	-eval "$$(ssh-agent -s)"
 	docker run --name "$(PRJTAG)-$(VERSION_TAG)" -v "$(SSH_AUTH_SOCK):/ssh-agent" -e "SSH_AUTH_SOCK=/ssh-agent" -v dist:/usr/src/fw/dist:rw -t bcdevices/$(PRJTAG) /bin/bash -c 'which dtc && source zephyr/zephyr-env.sh && make build'
 	docker cp "$(PRJTAG)-$(VERSION_TAG):/usr/src/fw/ly10_zephyr_fw/build/zephyr/zephyr.hex" dist/ly10-zephyr-fw-$(VERSION_TAG).hex
+	#below command copies the generated header files that are based on the device tree overlay
+	#docker cp "$(PRJTAG)-$(VERSION_TAG):/usr/src/fw/ly10_zephyr_fw/build/zephyr/include" generatedHeaders/
