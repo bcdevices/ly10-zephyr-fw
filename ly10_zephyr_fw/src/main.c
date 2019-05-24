@@ -101,15 +101,6 @@ void main(void)
 
 
 
-	/* GPIO output */
-	ret = gpio_pin_configure(gpio_out_dev, GPIO_PWR_EN, (GPIO_DIR_OUT));
-
-		printk("Toggling pin %d\n", GPIO_PWR_EN);
-
-		ret = gpio_pin_write(gpio_out_dev, GPIO_PWR_EN, 1);
-
-
-
 	/* Bluetooth */
 	int err;
 
@@ -144,6 +135,15 @@ void main(void)
            bd_addr[2], bd_addr[1], bd_addr[0]);
 
 
+	/* GPIO output */
+	ret = gpio_pin_configure(gpio_out_dev, GPIO_PWR_EN, (GPIO_DIR_OUT));
+
+		printk("Turning on 5V_LED Rail %d\n", GPIO_PWR_EN);
+
+		ret = gpio_pin_write(gpio_out_dev, GPIO_PWR_EN, 1);
+
+
+
 
 	/* APA102 Strip */
 	struct device *strip;
@@ -161,6 +161,7 @@ void main(void)
 			memcpy(&strip_colors[i], color_at(time, i), sizeof(strip_colors[i]));
 
 			}
+
 			led_strip_update_rgb(strip, strip_colors, STRIP_NUM_LEDS);
 			k_sleep(DELAY_TIME);
 			time++;
