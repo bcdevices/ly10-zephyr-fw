@@ -2,7 +2,24 @@ PRJTAG := ly10-zephyr-fw
 GIT_DESC := $(shell git describe --tags --always --dirty --match "v[0-9]*")
 VERSION_TAG := $(patsubst v%,%,$(GIT_DESC))
 
-DOCKER_LABEL := $(PRJTAG)-$(VERSION_TAG)
+# Makefile default shell is /bin/sh which does not implement `source`.
+SHELL := /bin/bash
+
+BASE_PATH := $(realpath .)
+DIST := $(BASE_PATH)/dist
+
+GIT_DESC := $(shell git describe --tags --always --dirty --match "v[0-9]*")
+VERSION_TAG := $(patsubst v%,%,$(GIT_DESC))
+
+DOCKER_BUILD_ARGS :=
+DOCKER_BUILD_ARGS += --network=host
+
+DOCKER_RUN_ARGS :=
+DOCKER_RUN_ARGS += --network=none
+
+#ZEPHYR_BOARD := nrf_pca10040
+ZEPHYR_BOARD := ly10demo
+ZEPHYR_BOARD_ROOT := $(BASE_PATH)
 
 default: build
 
@@ -13,16 +30,46 @@ versions:
 
 .PHONY: build
 build:
-	rm -rf ly10_zephyr_fw/build
-	mkdir -p ly10_zephyr_fw/build
-	cd ly10_zephyr_fw/build && cmake -DBOARD=nrf52_pca10040 ..
-	cd ly10_zephyr_fw/build && $(MAKE)
+	source zephyrproject/zephyr/zephyr-env.sh && \
+	  cd zephyrproject/zephyr/samples/hello_world && \
+          west build --pristine auto --board "$(ZEPHYR_BOARD)" -- -DBOARD_ROOT="$(ZEPHYR_BOARD_ROOT)"
+	source zephyrproject/zephyr/zephyr-env.sh && \
+	  cd app && \
+          west build --pristine auto --board "$(ZEPHYR_BOARD)" -- -DBOARD_ROOT="$(ZEPHYR_BOARD_ROOT)"
+
+.PHONY: clean
+clean:
+	-rm -rf $(BINS)
+
+.PHONY: prereq
+prereq:
+	pip3 install -r requirements.txt
+	install -d zephyrproject
+	cd zephyrproject && west init
+	cd zephyrproject && west update
+	pip3 install -r zephyrproject/zephyr/scripts/requirements.txt
+
+.PHONY: dist-prep
+dist-prep:
+	-install -d $(DIST)
+
+.PHONY: dist-clean
+dist-clean:
+	-rm -rf $(DIST)
+
+.PHONY: dist
+dist: dist-clean dist-prep build
+	install -m 666 zephyrproject/zephyr/samples/hello_world/build/zephyr/zephyr.hex dist/hello_world-$(VERSION_TAG).hex
+	install -m 666 zephyrproject/zephyr/samples/hello_world/build/zephyr/zephyr.elf dist/hello_world-$(VERSION_TAG).elf
+	install -m 666 zephyrproject/zephyr/samples/hello_world/build/zephyr/zephyr.map dist/hello_world-$(VERSION_TAG).map
+	install -m 666 app/build/zephyr/zephyr.hex dist/app-$(VERSION_TAG).hex
+	install -m 666 app/build/zephyr/zephyr.elf dist/app-$(VERSION_TAG).elf
+	install -m 666 app/build/zephyr/zephyr.map dist/app-$(VERSION_TAG).map
 
 .PHONY: docker
-docker:
-	install -d dist/
-	docker build -t bcdevices/$(PRJTAG) .
+docker: dist-prep
+	docker build $(DOCKER_BUILD_ARGS) -t "bcdevices/$(PRJTAG)" .
 	-docker rm -f "$(PRJTAG)-$(VERSION_TAG)"
-	-eval "$$(ssh-agent -s)"
-	docker run --name "$(PRJTAG)-$(VERSION_TAG)" -v "$(SSH_AUTH_SOCK):/ssh-agent" -e "SSH_AUTH_SOCK=/ssh-agent" -v dist:/usr/src/fw/dist:rw -t bcdevices/$(PRJTAG) /bin/bash -c 'which dtc && source zephyr/zephyr-env.sh && make build'
-	docker cp "$(PRJTAG)-$(VERSION_TAG):/usr/src/fw/ly10_zephyr_fw/build/zephyr/zephyr.hex" dist/ly10-zephyr-fw-$(VERSION_TAG).hex
+	docker run  $(DOCKER_RUN_ARGS) --name "$(PRJTAG)-$(VERSION_TAG)"  -t "bcdevices/$(PRJTAG)" \
+	 /bin/bash -c "make build dist"
+	docker cp "$(PRJTAG)-$(VERSION_TAG):/usr/src/dist" $(BASE_PATH)

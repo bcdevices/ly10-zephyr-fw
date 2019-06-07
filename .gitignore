@@ -2,7 +2,8 @@
 *.DS_Store
 
 # 'dist' folder
-/dist
+/dist/
 
 # From Zephyr SDK
-**/build
+build/
+/zephyrproject/

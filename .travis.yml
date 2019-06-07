@@ -1,0 +1,8 @@
+sudo: required
+language: c
+services:
+- docker
+python:
+- 2.7
+script:
+- make docker
