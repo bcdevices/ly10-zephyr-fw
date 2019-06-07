@@ -31,9 +31,6 @@ versions:
 .PHONY: build
 build:
 	source zephyrproject/zephyr/zephyr-env.sh && \
-	  cd zephyrproject/zephyr/samples/hello_world && \
-          west build --pristine auto --board "$(ZEPHYR_BOARD)" -- -DBOARD_ROOT="$(ZEPHYR_BOARD_ROOT)"
-	source zephyrproject/zephyr/zephyr-env.sh && \
 	  cd app && \
           west build --pristine auto --board "$(ZEPHYR_BOARD)" -- -DBOARD_ROOT="$(ZEPHYR_BOARD_ROOT)"
 
@@ -59,12 +56,9 @@ dist-clean:
 
 .PHONY: dist
 dist: dist-clean dist-prep build
-	install -m 666 zephyrproject/zephyr/samples/hello_world/build/zephyr/zephyr.hex dist/hello_world-$(VERSION_TAG).hex
-	install -m 666 zephyrproject/zephyr/samples/hello_world/build/zephyr/zephyr.elf dist/hello_world-$(VERSION_TAG).elf
-	install -m 666 zephyrproject/zephyr/samples/hello_world/build/zephyr/zephyr.map dist/hello_world-$(VERSION_TAG).map
-	install -m 666 app/build/zephyr/zephyr.hex dist/app-$(VERSION_TAG).hex
-	install -m 666 app/build/zephyr/zephyr.elf dist/app-$(VERSION_TAG).elf
-	install -m 666 app/build/zephyr/zephyr.map dist/app-$(VERSION_TAG).map
+	install -m 666 app/build/zephyr/zephyr.hex dist/ly10-zephyr-fw-$(VERSION_TAG).hex
+	install -m 666 app/build/zephyr/zephyr.elf dist/ly10-zephyr-fw-$(VERSION_TAG).elf
+	install -m 666 app/build/zephyr/zephyr.map dist/ly10-zephyr-fw-$(VERSION_TAG).map
 
 .PHONY: docker
 docker: dist-prep
