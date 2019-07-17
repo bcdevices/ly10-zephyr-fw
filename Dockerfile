@@ -19,23 +19,20 @@
 
 FROM buildpack-deps:cosmic-scm
 
-MAINTAINER Blue Clover Devices DevTeam
-
 # Setup environment
 ENV DEBIAN_FRONTEND noninteractive
 ENV TERM=xterm
 
 #Setup locale
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y locales
-
+RUN apt-get update && apt-get install -y --no-install-recommends \
+		locales \
+	  && rm -rf /var/lib/apt/lists/*
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
     dpkg-reconfigure --frontend=noninteractive locales && \
     update-locale LANG=en_US.UTF-8
-
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
-
 ENV LANG=C.UTF-8
 
 # Install needed packages
@@ -69,26 +66,23 @@ RUN wget -q https://github.com/Kitware/CMake/releases/download/v3.13.2/cmake-3.1
 	./cmake-3.13.2-Linux-x86_64.sh --skip-license --prefix=/usr/local && \
 	rm -f ./cmake-3.13.2-Linux-x86_64.sh
 
-RUN wget -nv https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.10.0/zephyr-sdk-0.10.0-setup.run
-RUN sh zephyr-sdk-0.10.0-setup.run
+RUN wget -nv https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.10.1/zephyr-sdk-0.10.1-setup.run
+RUN sh zephyr-sdk-0.10.1-setup.run
 ENV ZEPHYR_TOOLCHAIN_VARIANT zephyr
 ENV ZEPHYR_SDK_INSTALL_DIR /opt/zephyr-sdk
 
 RUN pip3 install --upgrade pip wheel setuptools
-#RUN pip3 install wheel setuptools
 RUN pip3 install west
 
 RUN mkdir -p /usr/src/zephyrproject
-
-WORKDIR "/usr/src/zephyrproject"
-
+WORKDIR /usr/src/zephyrproject
 RUN west init
 RUN west update
+
 RUN pip3 install -r zephyr/scripts/requirements.txt
 
 RUN mkdir /root/.ssh && echo "StrictHostKeyChecking no " > /root/.ssh/config
 
-WORKDIR "/usr/src/"
-
+WORKDIR /usr/src/
 ## Copy everything (use .dockerignore to exclude)
-COPY . "/usr/src"
+COPY . /usr/src
