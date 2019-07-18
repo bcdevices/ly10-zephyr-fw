@@ -17,7 +17,7 @@
 # from Blue Clover Devices.
 #
 
-FROM bcdevices/zephyr-west
+FROM bcdevices/zephyr-west:zephyr-1.14.1-rc1-1
 
 RUN mkdir /root/.ssh && echo "StrictHostKeyChecking no " > /root/.ssh/config
 
