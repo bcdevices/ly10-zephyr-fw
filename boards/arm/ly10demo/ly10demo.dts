@@ -65,7 +65,7 @@ arduino_serial: &uart0 {
 };
 
 &i2c0 {
-	/* status = "ok"; */
+	status = "ok";
 	sda-pin = <12>;
 	scl-pin = <14>;
 

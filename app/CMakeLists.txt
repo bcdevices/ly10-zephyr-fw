@@ -9,6 +9,6 @@ project(my_zephyr_app)
 
 # Add your source file to the "app" target. This must come after
 # the boilerplate code, which defines the target.
-target_sources(app PRIVATE src/main.c src/app_ble.c src/app_ledstrip.c)
+target_sources(app PRIVATE src/main.c src/app_ble.c src/app_ledstrip.c src/app_sensor.c)
 
 zephyr_library_include_directories($ENV{ZEPHYR_BASE}/samples/bluetooth)
