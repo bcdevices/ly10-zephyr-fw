@@ -14,8 +14,6 @@
 #include <sensor.h>
 #include <stdio.h>
 
-#define DELAY_TIME K_MSEC(100)
-
 int app_sensor_setup(void)
 {
     struct sensor_value temp, hum;
