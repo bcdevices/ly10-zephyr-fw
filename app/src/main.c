@@ -14,6 +14,7 @@
 #define DELAY_TIME K_MSEC(100)
 
 extern int app_ble(void);
+extern int app_buzzer_setup(void);
 extern int app_ledstrip_setup(void);
 extern int app_ledstrip_run(void);
 extern int app_sensor_setup(void);
@@ -34,6 +35,11 @@ void main(void)
     }
 
     err = app_sensor_setup();
+    if (err) {
+	return;
+    }
+
+    err = app_buzzer_setup();
     if (err) {
 	return;
     }
