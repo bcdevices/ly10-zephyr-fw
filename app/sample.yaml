@@ -1,8 +1,8 @@
 sample:
-  description: TBD
-  name: TBD
+  name: LY10 Demo
 tests:
   test:
     harness: bluetooth
-    platform_whitelist: qemu_cortex_m3 qemu_x86
+    platform_whitelist: ly10demo qemu_cortex_m3 qemu_x86
     tags: bluetooth
+    depends_on: pwm spi gpio
