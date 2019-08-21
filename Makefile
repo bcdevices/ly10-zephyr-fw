@@ -30,7 +30,7 @@ versions:
 
 .PHONY: build
 build:
-	source zephyrproject/zephyr/zephyr-env.sh && \
+	source /usr/src/zephyrproject/zephyr/zephyr-env.sh && \
 	  cd app && \
           west build --pristine auto --board "$(ZEPHYR_BOARD)" -- -DBOARD_ROOT="$(ZEPHYR_BOARD_ROOT)"
 
