@@ -28,5 +28,6 @@ LABEL "repository"="https://github.com/bcdevices/ly10-zephyr-fw"
 LABEL "homepage"="https://github.com/bcdevices/ly10-zephyr-fw"
 LABEL "maintainer"="Blue Clover Devices"
 
-ENTRYPOINT ["/bin/make"]
+COPY Makefile .
+ENTRYPOINT ["/usr/bin/make"]
 CMD ["dist"]
