@@ -1,0 +1,11 @@
+name: A workflow for building ly10 demo zephyr project
+on: push
+
+jobs:
+  build:
+    name: Zephyr build action
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: ./action-zephyr
+
