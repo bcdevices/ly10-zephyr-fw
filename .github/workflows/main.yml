@@ -8,4 +8,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - uses: ./actions/action-zephyr
-
+    - uses: ./actions/action-pltcloud
+    env:
+      API_TOKEN: ${{ secrets.API_TOKEN }}
+      PROJECT_UUID: ${{ secrets.PROJECT_UUID }}
