@@ -11,8 +11,14 @@ LABEL "maintainer"="Blue Clover Devices"
 
 WORKDIR /usr/src
 
-ADD pltcloud*_amd64.deb .
+RUN set -xe \
+  && apt-get update \
+  && apt-get install -y --no-install-recommends \
+	musl \
+  ca-certificates \
+ && rm -rf /var/lib/apt/lists/*
 
+ADD pltcloud*_amd64.deb .
 RUN dpkg -i pltcloud*_amd64.deb
 
 ADD entrypoint.sh /entrypoint.sh

@@ -1,3 +1,3 @@
 #!/bin/sh -l
 
-sh -c "ls /usr/local/bin"
+sh -c "/usr/local/bin/pltcloud -t $API_TOKEN -f \"dist/*\" -v $GITHUB_REF -p $PROJECT_UUID"
