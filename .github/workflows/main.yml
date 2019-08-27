@@ -9,6 +9,7 @@ jobs:
     - uses: actions/checkout@master
     - uses: ./actions/action-zephyr
     - uses: ./actions/action-pltcloud
+      if: contains(github.ref, 'tags')
       env:
         API_TOKEN: ${{ secrets.API_TOKEN }}
         PROJECT_UUID: ${{ secrets.PROJECT_UUID }}
