@@ -54,11 +54,13 @@ dist-prep:
 dist-clean:
 	-rm -rf $(DIST)
 
+
 .PHONY: dist
 dist: dist-clean dist-prep build
 	install -m 666 app/build/zephyr/zephyr.hex dist/ly10-zephyr-fw-$(VERSION_TAG).hex
 	install -m 666 app/build/zephyr/zephyr.elf dist/ly10-zephyr-fw-$(VERSION_TAG).elf
 	install -m 666 app/build/zephyr/zephyr.map dist/ly10-zephyr-fw-$(VERSION_TAG).map
+	sed 's/{{VERSION}}/$(VERSION_TAG)/g' test-suites/suite-LY10-zephyr.yaml.template > dist/suite-LY10-zephyr-$(VERSION_TAG).yaml
 
 .PHONY: docker
 docker: dist-prep
