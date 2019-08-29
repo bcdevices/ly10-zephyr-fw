@@ -12,8 +12,11 @@ before_script:
 - sudo dpkg -i pltcloud_0.2.1_amd64.deb
 script:
 - make docker
-after_script:
-- make deploy
+deploy:
+  - provider: script
+    script: make deploy
+    # on:
+    #  branch: develop
 notifications:
   slack:
     secure: GgjfEaZ2DpRNDNgG0u+JlSwwU5GGFpfBL4ExsRYvCo+N5Q0d3vmIqj1sQtoXWn6L9++pyEL19D8D+Rvtx3P+WHIDvRN/Qaj991+iOwWsjmWYx91UdjpTQx+Evjlem9+ekRI8/PsbruspkpAr3l2n3yzhndP5aa7L2kGA7sEp3x3qcNaU+eQUcuIsv7TmwahEsKX0BWqOm34e2ESlUBoqOYyn24cVceKukuaetf20WpRQR8JKGpQnFWeXqHugLmw8mjE8LCdMqbPCDXssfKxrzxixMUPDyU14XD8FAVLlSBUwj50j5P+FQd5wvjoALDIbozyW5r9I1MiGGcFfaBDc57uJAdKHJGeupdri2xXXCqvU4ROdDyRqr+kCcL0ypEsjtTZolxvPc3oqoihkhiIg1W7ud/95JmD7pkJfuO1LbSZFn5EF2+KajW5ewpzuElKvq5axEgVXZNYFXliAThdVzs5qYPU2vkpmWu8lpjKgW90jzaP6H/8UqRI0UocdSF2D6Buen0FysesHNKLDIW1113DRF9Y//lwQTDjuRVbYS8WzGDrsTOs/Jren3CXTqJ2ykgoJ7oEGuRzbtCdS41KYF4+ot4i1ZqUunRlkPNaWGPfZDvQForuxfEvbIPFOejW9rVY9qW1YFjyL0BaiyjKtBFRsIYZaq3P0WOdrdeu+mfc=
