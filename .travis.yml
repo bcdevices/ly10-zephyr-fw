@@ -15,7 +15,8 @@ script:
 deploy:
   - provider: script
     script: make deploy
-    # on:
+    on:
+      all_branches: true
     #  branch: develop
 notifications:
   slack:
