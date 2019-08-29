@@ -62,6 +62,10 @@ dist: dist-clean dist-prep build
 	install -m 666 app/build/zephyr/zephyr.map dist/ly10-zephyr-fw-$(VERSION_TAG).map
 	sed 's/{{VERSION}}/$(VERSION_TAG)/g' test-suites/suite-LY10-zephyr.yaml.template > dist/suite-LY10-zephyr-$(VERSION_TAG).yaml
 
+.PHONY: deploy
+deploy:
+	/usr/local/bin/pltcloud -t $(API_TOKEN) -f \"dist/*\" -v $(VERSION) -p $(PROJECT_UUID)
+
 .PHONY: docker
 docker: dist-prep
 	docker build $(DOCKER_BUILD_ARGS) -t "bcdevices/$(PRJTAG)" .
