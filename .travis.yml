@@ -8,7 +8,7 @@ env:
     secure: WzCjbxNd38QMwE32/zvMbmxohkbofP2JaevG3++ICqXJavnDopj6wNRBVgdWD9FEAF7OaxFbhVIlOnB30MuLucsepiEjGUR72c+KM92x/wRf4VguGwTjN0/hvrT00nHp8z2YzkuCn2atXyfORbNQvt7zWy7nsi/UmztXr9o3hZ3OfJ+08KQi+DPeoZ/5bSI3IDhHY1L4pHNNv5ehDG/UPw/j1FUhELcQhs2vpshHrWk8FKx3+g/uDls5SkIp12VJ99/0VOFsdRAIHAQ+4bPvrvL3XvgsDXRBiCE3IyG84PoeXLFyrSjv8kszAJ6VYfaruneKn9Pl4QHKMARK5WIQuX2YJL62SirtYr3fD89L4MwbBWP3EXb3dNLN6zD5xKz7WfcDusP7m1glT048ojxztTrEN7NevTvOhqxKM/OKLzdrmvK7/gyuO+RvnhWd5PZiRbusMTE6H/BS9wMWZ0HDJ9l5RDQ1999HxkVlfXU4ITDIPomml/W0qnGnvfDW9eQ9QDbWwFIbs3HI82AJuesY/0gfJpW/FuKmd5SFMbN9ZltPE6V6jmoM+0g851u6jl+5tb9XIGD3fFMetDrpJMIygL4JnMuelZmzPXVJGGBUUWGdLv33FbzqGztkN9ZCSZ8tPy3ATEPaI64waJ7Zqm4pCOsHMknl2W7X4wylY3TysQ0=
 before_script:
 - sudo apt-get install -y musl
-- wget http://download.pltcloud.com.s3-website-us-east-1.amazonaws.com/cli/pltcloud_0.2.1_amd64.deb
+- wget https://download.pltcloud.com/cli/pltcloud_0.2.1_amd64.deb
 - sudo dpkg -i pltcloud_0.2.1_amd64.deb
 script:
 - make docker
