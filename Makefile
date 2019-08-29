@@ -64,7 +64,7 @@ dist: dist-clean dist-prep build
 
 .PHONY: deploy
 deploy:
-	/usr/local/bin/pltcloud -t $(API_TOKEN) -f "dist/*" -v $(VERSION) -p $(PROJECT_UUID)
+	/usr/local/bin/pltcloud -t $(API_TOKEN) -f "dist/*" -v $(VERSION_TAG) -p $(PROJECT_UUID)
 
 .PHONY: docker
 docker: dist-prep
