@@ -14,6 +14,7 @@ script:
 - make docker
 deploy:
   - provider: script
+    skip_cleanup: true
     script: make deploy
     on:
       all_branches: true
