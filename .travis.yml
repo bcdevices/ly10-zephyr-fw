@@ -2,6 +2,8 @@ sudo: required
 language: c
 services:
 - docker
+before_script:
+  - sudo apt-get install -y musl
 script:
 - make docker
 notifications:
