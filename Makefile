@@ -54,11 +54,17 @@ dist-prep:
 dist-clean:
 	-rm -rf $(DIST)
 
+
 .PHONY: dist
 dist: dist-clean dist-prep build
 	install -m 666 app/build/zephyr/zephyr.hex dist/ly10-zephyr-fw-$(VERSION_TAG).hex
 	install -m 666 app/build/zephyr/zephyr.elf dist/ly10-zephyr-fw-$(VERSION_TAG).elf
 	install -m 666 app/build/zephyr/zephyr.map dist/ly10-zephyr-fw-$(VERSION_TAG).map
+	sed 's/{{VERSION}}/$(VERSION_TAG)/g' test-suites/suite-LY10-zephyr.yaml.template > dist/suite-LY10-zephyr-$(VERSION_TAG).yaml
+
+.PHONY: deploy
+deploy:
+	pltcloud -t $(API_TOKEN) -f "dist/*" -v $(VERSION_TAG) -p $(PROJECT_UUID)
 
 .PHONY: docker
 docker: dist-prep
