@@ -12,4 +12,3 @@ jobs:
       env:
         API_TOKEN: ${{ secrets.API_TOKEN }}
         PROJECT_UUID: ${{ secrets.PROJECT_UUID }}
-        VERSION_TAG: ${{ GITHUB_REF:10 }}
