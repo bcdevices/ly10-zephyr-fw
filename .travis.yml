@@ -9,7 +9,8 @@ env:
 script:
 - make docker
 before_deploy:
-- sudo apt-get install -y musl
+- sudo apt-get update && \
+  apt-get install -y musl
 - wget https://download.pltcloud.com/cli/pltcloud_0.2.2_amd64.deb
 - sudo dpkg -i pltcloud_0.2.2_amd64.deb
 deploy:
