@@ -16,6 +16,7 @@ RUN set -xe \
   && apt-get install -y --no-install-recommends \
 	musl \
   ca-certificates \
+  bash \
  && rm -rf /var/lib/apt/lists/*
 
 ADD pltcloud*_amd64.deb .
