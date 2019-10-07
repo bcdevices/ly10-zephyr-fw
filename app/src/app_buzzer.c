@@ -1,10 +1,7 @@
 //
-// Confidential!!!
-// Source code property of Blue Clover Devices.
+// Copyright (c) 2019 Blue Clover Devices
 //
-// Demonstration, distribution, replication, or other use of the
-// source codes is NOT permitted without prior written consent
-// from Blue Clover Devices.
+// SPDX-License-Identifier: Apache-2.0
 //
 
 /* app_buzzer.c - Buzzer interface */

@@ -1,3 +1,9 @@
+#
+# Copyright (c) 2019 Blue Clover Devices
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
 FROM debian:stretch
 
 LABEL "com.github.actions.name"="PLTcloud publish"

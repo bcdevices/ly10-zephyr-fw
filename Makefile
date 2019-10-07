@@ -1,3 +1,9 @@
+#
+# Copyright (c) 2019 Blue Clover Devices
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
 PRJTAG := ly10-zephyr-fw
 GIT_DESC := $(shell git describe --tags --always --dirty --match "v[0-9]*")
 VERSION_TAG := $(patsubst v%,%,$(GIT_DESC))

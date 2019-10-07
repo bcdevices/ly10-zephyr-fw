@@ -6,10 +6,6 @@ Zephyr-based firmware for LY10DEMO
 - Host platform: LY10DEMO(nRF52)
 - Target platform: LY10DEMO(nRF52)
 
-*COMPANY CONFIDENTIAL - For internal use by Blue Clover Devices only*
-
-(c)2019 Blue Clover Devices - ALL RIGHTS RESERVED
-
 ## Docker build
 
 ### Prerequisites
