@@ -1,20 +1,7 @@
 #
-# Usage: From the "Docker Quickstart Terminal", execute:
+# Copyright (c) 2019 Blue Clover Devices
 #
-#  docker build -t bcdevices/ly10-zephyr-fw
-#
-# References:
-# - https://docs.docker.com/reference/builder/
-# - https://docs.docker.com/articles/dockerfile_best-practices/
-#
-# --
-#
-# Confidential!!!
-# Source code property of Blue Clover Devices.
-#
-# Demonstration, distribution, replication, or other use of the
-# source codes is NOT permitted without prior written consent
-# from Blue Clover Devices.
+# SPDX-License-Identifier: Apache-2.0
 #
 
 FROM bcdevices/zephyr-west:zephyr-1.14.1-rc1-1
