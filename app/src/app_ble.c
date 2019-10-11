@@ -57,12 +57,8 @@ int app_ble(void)
     }
     printk("Advertising successfully started on the Demo Board\n");
 
-    // Get MAC Address and store in Memory
-    u8_t *temp_bd_addr = (u8_t *) ll_addr_get(1, NULL);	// '1' as first parameter indicates we are seeking the 'random' BD address
-    u8_t volatile *bd_addr = (u8_t *) 0x20005000;
-    for (int i = 0; i < 6; i++) {
-	bd_addr[i] = temp_bd_addr[i];
-    }
+    // Get MAC Address
+    u8_t *bd_addr = (u8_t *) ll_addr_get(1, NULL);	// '1' as first parameter indicates we are seeking the 'random' BD address
     printk("Random BD Address: %02x:%02x:%02x:%02x:%02x:%02x\n",
 	   bd_addr[5], bd_addr[4], bd_addr[3],
 	   bd_addr[2], bd_addr[1], bd_addr[0]);
