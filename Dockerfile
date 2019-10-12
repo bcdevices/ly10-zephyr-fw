@@ -6,8 +6,6 @@
 
 FROM bcdevices/zephyr-west:zephyr-1.14.1-1
 
-RUN mkdir /root/.ssh && echo "StrictHostKeyChecking no " > /root/.ssh/config
-
 WORKDIR /usr/src/
 ## Copy everything (use .dockerignore to exclude)
 COPY . /usr/src
