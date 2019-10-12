@@ -1,4 +1,4 @@
-name: Build firmware
+name: Zephyr Build, Deploy tagged commits
 on: push
 
 jobs:
