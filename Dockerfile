@@ -4,7 +4,7 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-FROM bcdevices/zephyr-west:zephyr-1.14.1-rc1-1
+FROM bcdevices/zephyr-west:zephyr-1.14.1-1
 
 RUN mkdir /root/.ssh && echo "StrictHostKeyChecking no " > /root/.ssh/config
 
