@@ -1,4 +1,4 @@
-name: A workflow for building ly10 demo zephyr project
+name: Zephyr Build, Deploy tagged commits
 on: push
 
 jobs:
