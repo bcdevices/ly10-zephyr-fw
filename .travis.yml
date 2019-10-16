@@ -4,8 +4,8 @@ services:
 - docker
 env:
   global:
-    - PROJECT_UUID=0572314c-bd21-11e9-8c83-024f4387ee42
-    - secure: WzCjbxNd38QMwE32/zvMbmxohkbofP2JaevG3++ICqXJavnDopj6wNRBVgdWD9FEAF7OaxFbhVIlOnB30MuLucsepiEjGUR72c+KM92x/wRf4VguGwTjN0/hvrT00nHp8z2YzkuCn2atXyfORbNQvt7zWy7nsi/UmztXr9o3hZ3OfJ+08KQi+DPeoZ/5bSI3IDhHY1L4pHNNv5ehDG/UPw/j1FUhELcQhs2vpshHrWk8FKx3+g/uDls5SkIp12VJ99/0VOFsdRAIHAQ+4bPvrvL3XvgsDXRBiCE3IyG84PoeXLFyrSjv8kszAJ6VYfaruneKn9Pl4QHKMARK5WIQuX2YJL62SirtYr3fD89L4MwbBWP3EXb3dNLN6zD5xKz7WfcDusP7m1glT048ojxztTrEN7NevTvOhqxKM/OKLzdrmvK7/gyuO+RvnhWd5PZiRbusMTE6H/BS9wMWZ0HDJ9l5RDQ1999HxkVlfXU4ITDIPomml/W0qnGnvfDW9eQ9QDbWwFIbs3HI82AJuesY/0gfJpW/FuKmd5SFMbN9ZltPE6V6jmoM+0g851u6jl+5tb9XIGD3fFMetDrpJMIygL4JnMuelZmzPXVJGGBUUWGdLv33FbzqGztkN9ZCSZ8tPy3ATEPaI64waJ7Zqm4pCOsHMknl2W7X4wylY3TysQ0=
+  - PROJECT_UUID=0572314c-bd21-11e9-8c83-024f4387ee42
+  - secure: W2bshl+vwBbvErjV3UfMKEsHD9xDUOkM++YqNLMVnY17QiBXPnmbGSehztdmTS/DgvCTmFa/89b54RKUc83AMtwQJGid1u9sjFUPpPdvBDRhBnWidp+SG5FJu/MdPMSZdnx+tRTWxT3vDYiMBsauBaRUfKLzbL51HJRZg60PynZwEZMfq/wSpBbmtoA9iwvdeDp9jW+qxivHyDQTwT4wGRRE6LuRR1XIO33ZgqW/QcbDtgVdThDR1/nEeWVuAIXowZMhKvLJ0yPyrrOGvpU9vtt5DwBGvzW9xbM5n9Y0rn8LMmQMRZl9133RJxGEtKDxzVZ6TxFPPKL5430y3A+2lF/oxX3PUWYh8NqKzRfPbwXJBIi8V51R8od5SUh6/LWKTDBXGah7rzaVh61T9CT11gBcx8hIZOjgFLOUtWGluiztGGovG4h2btJSdap9CMd6SD+bOe/0kAW0AU9Rjd1BY3u4n+drALpCCnTA/lCvoZio4XE4QiBotJxkDDUzs/ShLJNTuXtOn/QIH9pnFWkgTiCOcUuAgfJ6RmE5VxUFmTAgn2bjY9H61pw9/yrhf9Q1kz4xQbQ22vO3TN2HnFkna319r8uHx/cfktY4tFXQGV/uWYNSS61WjzI9DWswqX6CeZfZv3jjSGFmGdD4Dr2zzHBhsUpZWegN39GWhCU2ZOA=
 script:
 - make docker
 before_deploy:
@@ -14,13 +14,13 @@ before_deploy:
 - wget https://download.pltcloud.com/cli/pltcloud_0.2.2_amd64.deb
 - sudo dpkg -i pltcloud_0.2.2_amd64.deb
 deploy:
-  - provider: script
-    skip_cleanup: true
-    script: make deploy
-    on:
-      repo: bcdevices/ly10-zephyr-fw
-      all_branches: true
-      tags: true
+- provider: script
+  skip_cleanup: true
+  script: make deploy
+  on:
+    repo: bcdevices/ly10-zephyr-fw
+    all_branches: true
+    tags: true
 notifications:
   slack:
     secure: GgjfEaZ2DpRNDNgG0u+JlSwwU5GGFpfBL4ExsRYvCo+N5Q0d3vmIqj1sQtoXWn6L9++pyEL19D8D+Rvtx3P+WHIDvRN/Qaj991+iOwWsjmWYx91UdjpTQx+Evjlem9+ekRI8/PsbruspkpAr3l2n3yzhndP5aa7L2kGA7sEp3x3qcNaU+eQUcuIsv7TmwahEsKX0BWqOm34e2ESlUBoqOYyn24cVceKukuaetf20WpRQR8JKGpQnFWeXqHugLmw8mjE8LCdMqbPCDXssfKxrzxixMUPDyU14XD8FAVLlSBUwj50j5P+FQd5wvjoALDIbozyW5r9I1MiGGcFfaBDc57uJAdKHJGeupdri2xXXCqvU4ROdDyRqr+kCcL0ypEsjtTZolxvPc3oqoihkhiIg1W7ud/95JmD7pkJfuO1LbSZFn5EF2+KajW5ewpzuElKvq5axEgVXZNYFXliAThdVzs5qYPU2vkpmWu8lpjKgW90jzaP6H/8UqRI0UocdSF2D6Buen0FysesHNKLDIW1113DRF9Y//lwQTDjuRVbYS8WzGDrsTOs/Jren3CXTqJ2ykgoJ7oEGuRzbtCdS41KYF4+ot4i1ZqUunRlkPNaWGPfZDvQForuxfEvbIPFOejW9rVY9qW1YFjyL0BaiyjKtBFRsIYZaq3P0WOdrdeu+mfc=
