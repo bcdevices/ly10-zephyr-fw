@@ -11,7 +11,7 @@ script:
 before_deploy:
 - sudo apt-get update
 - sudo apt-get install -y musl
-- wget https://download.pltcloud.com/cli/pltcloud_0.2.2_amd64.deb
+- wget https://download.pltcloud.com/cli/pltcloud_0.3.0_amd64.deb
 - sudo dpkg -i pltcloud_0.2.2_amd64.deb
 deploy:
 - provider: script
