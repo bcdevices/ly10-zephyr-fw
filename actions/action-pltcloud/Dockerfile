@@ -26,7 +26,7 @@ RUN set -xe \
   wget \
  && rm -rf /var/lib/apt/lists/*
 
-RUN wget https://download.pltcloud.com/cli/pltcloud_0.2.2_amd64.deb
+RUN wget https://download.pltcloud.com/cli/pltcloud_0.3.0_amd64.deb
 RUN dpkg -i pltcloud*_amd64.deb
 
 ADD entrypoint.sh /entrypoint.sh
