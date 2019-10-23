@@ -5,8 +5,6 @@
 #
 
 PRJTAG := ly10-zephyr-fw
-GIT_DESC := $(shell git describe --tags --always --dirty --match "v[0-9]*")
-VERSION_TAG := $(patsubst v%,%,$(GIT_DESC))
 
 # Makefile default shell is /bin/sh which does not implement `source`.
 SHELL := /bin/bash
@@ -14,7 +12,11 @@ SHELL := /bin/bash
 BASE_PATH := $(realpath .)
 DIST := $(BASE_PATH)/dist
 
-GIT_DESC := $(shell git describe --tags --always --dirty --match "v[0-9]*")
+.PHONY: GIT-VERSION-FILE
+GIT-VERSION-FILE: 
+	@sh ./GIT-VERSION-GEN
+-include GIT-VERSION-FILE
+
 VERSION_TAG := $(patsubst v%,%,$(GIT_DESC))
 
 DOCKER_BUILD_ARGS :=

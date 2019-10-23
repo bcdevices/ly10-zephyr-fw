@@ -1,0 +1,24 @@
+#!/bin/sh
+GVF=GIT-VERSION-FILE
+LF='
+'
+if [ -d .git ]; then
+VN=$(git describe --tags --always --match "v[0-9]*" HEAD 2>/dev/null) &&
+case "$VN" in
+*$LF*) (exit 1) ;;
+v[0-9]*)
+	git update-index -q --refresh
+	test -z "$(git diff-index --name-only HEAD --)" ||
+	VN="$VN-dirty" ;;
+esac
+fi
+if test -r $GVF
+then
+	VC=$(sed -e 's/^GIT_DESC = //' <$GVF)
+else
+	VC=unset
+fi
+test "$VN" = "$VC" || {
+	echo >&2 "GIT_DESC = $VN"
+	echo "GIT_DESC = $VN" >$GVF
+}
