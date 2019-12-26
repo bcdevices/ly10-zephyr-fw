@@ -41,7 +41,7 @@ versions:
 build:
 	echo "$(PWD)"
 	if [ -d zephyrproject/zephyr ]; then source zephyrproject/zephyr/zephyr-env.sh \
-	elif [ -d /usr/src/zephyrproject/zephyr ] then source /usr/src/zephyrproject/zephyr/zephyr-env.sh \
+	elif [ -d /usr/src/zephyrproject/zephyr ] then ls /usr/src/zephyrproject/zephyr ; source /usr/src/zephyrproject/zephyr/zephyr-env.sh \
 	else echo "No Zephyr"; fi && \
 	  echo "$$ZEPHYR_BASE" && \
 	  cd app && \
