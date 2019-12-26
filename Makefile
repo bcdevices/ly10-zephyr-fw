@@ -38,6 +38,7 @@ versions:
 
 .PHONY: build
 build:
+	echo "$(PWD)"
 	source /usr/src/zephyrproject/zephyr/zephyr-env.sh && \
 	  cd app && \
           west build --pristine auto --board "$(ZEPHYR_BOARD)" -- -DBOARD_ROOT="$(ZEPHYR_BOARD_ROOT)"
