@@ -42,6 +42,7 @@ build:
 	echo "$(PWD)"
 	if [ -d zephyrproject/zephyr ]; then source zephyrproject/zephyr/zephyr-env.sh \
 	else source /usr/src/zephyrproject/zephyr/zephyr-env.sh ; fi && \
+	  echo "$$ZEPHYR_BASE" &&
 	  cd app && \
           west build --pristine auto --board "$(ZEPHYR_BOARD)" -- -DBOARD_ROOT="$(ZEPHYR_BOARD_ROOT)"
 
