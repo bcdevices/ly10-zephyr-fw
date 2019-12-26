@@ -12,6 +12,9 @@ SHELL := /bin/bash
 BASE_PATH := $(realpath .)
 DIST := $(BASE_PATH)/dist
 
+.PHONY: default
+default: build
+
 .PHONY: GIT-VERSION-FILE
 GIT-VERSION-FILE: 
 	@sh ./GIT-VERSION-GEN
@@ -29,8 +32,6 @@ DOCKER_RUN_ARGS += --network=none
 ZEPHYR_BOARD := ly10demo
 ZEPHYR_BOARD_ROOT := $(BASE_PATH)
 
-default: build
-
 .PHONY: versions
 versions:
 	@echo "GIT_DESC: $(GIT_DESC)"
@@ -38,7 +39,8 @@ versions:
 
 .PHONY: build
 build:
-	source /usr/src/zephyrproject/zephyr/zephyr-env.sh && \
+	if [ -d zephyrproject/zephyr ]; then source zephyrproject/zephyr/zephyr-env.sh \
+	else source /usr/src/zephyrproject/zephyr/zephyr-env.sh ; fi && \
 	  cd app && \
           west build --pristine auto --board "$(ZEPHYR_BOARD)" -- -DBOARD_ROOT="$(ZEPHYR_BOARD_ROOT)"
 
@@ -50,7 +52,7 @@ clean:
 prereq:
 	pip3 install -r requirements.txt
 	install -d zephyrproject
-	cd zephyrproject && west init
+	cd zephyrproject && west init --mr v1.14.1
 	cd zephyrproject && west update
 	pip3 install -r zephyrproject/zephyr/scripts/requirements.txt
 
@@ -77,7 +79,7 @@ deploy:
 .PHONY: docker
 docker: dist-prep
 	docker build $(DOCKER_BUILD_ARGS) -t "bcdevices/$(PRJTAG)" .
-	-docker rm -f "$(PRJTAG)-$(VERSION_TAG)"
+	-@docker rm -f "$(PRJTAG)-$(VERSION_TAG)" 2>/dev/null
 	docker run  $(DOCKER_RUN_ARGS) --name "$(PRJTAG)-$(VERSION_TAG)"  -t "bcdevices/$(PRJTAG)" \
 	 /bin/bash -c "make build dist"
 	docker cp "$(PRJTAG)-$(VERSION_TAG):/usr/src/dist" $(BASE_PATH)

@@ -19,6 +19,6 @@ else
 	VC=unset
 fi
 test "$VN" = "$VC" || {
-	echo >&2 "GIT_DESC = $VN"
+	#echo >&2 "GIT_DESC = $VN"
 	echo "GIT_DESC = $VN" >$GVF
 }
