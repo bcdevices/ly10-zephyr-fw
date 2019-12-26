@@ -39,6 +39,7 @@ versions:
 
 .PHONY: build
 build:
+	echo "$(PWD)"
 	if [ -d zephyrproject/zephyr ]; then source zephyrproject/zephyr/zephyr-env.sh \
 	else source /usr/src/zephyrproject/zephyr/zephyr-env.sh ; fi && \
 	  cd app && \
