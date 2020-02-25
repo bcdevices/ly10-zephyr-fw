@@ -39,22 +39,74 @@ BOARDS_COMMON += disco_l475_iot1
 
 BLINKY_TARGETS := $(patsubst %,build.%/blinky/zephyr/zephyr.hex,$(BOARDS_COMMON))
 
+BOARDS_CAN :=
+BOARDS_CAN += stm32f4_disco
+BOARDS_CAN += nucleo_l432kc
+
+CAN_TARGETS := $(patsubst %,build.%/CAN/zephyr/zephyr.hex,$(BOARDS_CAN))
+
+BOARDS_BUTTON :=
+BOARDS_BUTTON += nrf52_pca10040
+BOARDS_BUTTON += nrf9160_pca10090
+BOARDS_BUTTON += stm32f4_disco
+BOARDS_BUTTON += nucleo_f207zg
+BOARDS_BUTTON += nucleo_f401re
+BOARDS_BUTTON += disco_l475_iot1
+
+BUTTON_TARGETS := $(patsubst %,build.%/button/zephyr/zephyr.hex,$(BOARDS_BUTTON))
+
+SHELL_TARGETS := $(patsubst %,build.%/shell/zephyr/zephyr.hex,$(BOARDS_COMMON))
+
 build.%/blinky/zephyr/zephyr.hex:
-	# YCL: backref
+	mkdir -p build.$*/blinky
 	if [ -d zephyrproject/zephyr ]; then source zephyrproject/zephyr/zephyr-env.sh ; \
 	elif [ -d /usr/src/zephyrproject/zephyr ]; then source /usr/src/zephyrproject/zephyr/zephyr-env.sh ; \
 	else echo "No Zephyr"; fi && \
-	west --builddir build.% \
-	  --board % --pristine \
-	  $(ZEPHYR_BASE)/samples/basic/blinky \
-	fi
+	west build --build-dir build.$*/blinky \
+	  --board $* --pristine auto \
+	  $$ZEPHYR_BASE/samples/basic/blinky
 
-.PHONY: bt
-bt:
-	echo $(BLINKY_TARGETS)
+build.%/button/zephyr/zephyr.hex:
+	mkdir -p build.$*/button
+	if [ -d zephyrproject/zephyr ]; then source zephyrproject/zephyr/zephyr-env.sh ; \
+	elif [ -d /usr/src/zephyrproject/zephyr ]; then source /usr/src/zephyrproject/zephyr/zephyr-env.sh ; \
+	else echo "No Zephyr"; fi && \
+	west build --build-dir build.$*/button \
+	  --board $* --pristine auto \
+	  $$ZEPHYR_BASE/samples/basic/button
+
+build.%/shell/zephyr/zephyr.hex:
+	mkdir -p build.$*/shell
+	if [ -d zephyrproject/zephyr ]; then source zephyrproject/zephyr/zephyr-env.sh ; \
+	elif [ -d /usr/src/zephyrproject/zephyr ]; then source /usr/src/zephyrproject/zephyr/zephyr-env.sh ; \
+	else echo "No Zephyr"; fi && \
+	west build --build-dir build.$*/shell \
+	  --board $* --pristine auto \
+	  $$ZEPHYR_BASE/samples/subsys/shell/shell_module 
+
+build.%/CAN/zephyr/zephyr.hex:
+	mkdir -p build.$*/CAN
+	if [ -d zephyrproject/zephyr ]; then source zephyrproject/zephyr/zephyr-env.sh ; \
+	elif [ -d /usr/src/zephyrproject/zephyr ]; then source /usr/src/zephyrproject/zephyr/zephyr-env.sh ; \
+	else echo "No Zephyr"; fi && \
+	west build --build-dir build.$*/CAN \
+	  --board $* --pristine auto \
+	  $$ZEPHYR_BASE/samples/drivers/CAN
 
 .PHONY: build-blinky
 build-blinky: $(BLINKY_TARGETS)
+
+.PHONY: build-button
+build-button: $(BUTTON_TARGETS)
+
+.PHONY: build-shell
+build-shell: $(SHELL_TARGETS)
+
+.PHONY: build-CAN
+build-CAN: $(CAN_TARGETS)
+
+.PHONY: build-zephyr-samples
+build-zephyr-samples: build-blinky build-button build-shell build-CAN
 
 #ZEPHYR_BOARD := nrf_pca10040
 ZEPHYR_BOARD := ly10demo
@@ -66,7 +118,7 @@ versions:
 	@echo "VERSION_TAG: $(VERSION_TAG)"
 
 .PHONY: build
-build:
+build: build-zephyr-samples
 	if [ -d zephyrproject/zephyr ]; then source zephyrproject/zephyr/zephyr-env.sh ; \
 	elif [ -d /usr/src/zephyrproject/zephyr ]; then source /usr/src/zephyrproject/zephyr/zephyr-env.sh ; \
 	else echo "No Zephyr"; fi && \
@@ -75,7 +127,7 @@ build:
 
 .PHONY: clean
 clean:
-	-rm -rf $(BINS)
+	-rm -rf $(BINS) build build.*
 
 .PHONY: prereq
 prereq:
@@ -91,7 +143,7 @@ dist-prep:
 
 .PHONY: dist-clean
 dist-clean:
-	-rm -rf $(DIST)
+	-rm -rf $(DIST) build build.*
 
 
 .PHONY: dist
