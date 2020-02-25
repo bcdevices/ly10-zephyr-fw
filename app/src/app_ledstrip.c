@@ -55,14 +55,14 @@ int app_ledstrip_setup(void)
     }
 
     /* GPIO output */
-    ret = gpio_pin_configure(gpio_out_dev, GPIO_PWR_EN, (GPIO_DIR_OUT));
+    ret = gpio_pin_configure(gpio_out_dev, GPIO_PWR_EN, GPIO_OUTPUT);
     if (ret) {
 	printk("Error configuring GPIO (err %d)\n", ret);
 	return ret;
     }
     printk("Turning on 5V_LED Rail %d\n", GPIO_PWR_EN);
 
-    ret = gpio_pin_set_raw(gpio_out_dev, GPIO_PWR_EN, 1);
+    ret = gpio_pin_set(gpio_out_dev, GPIO_PWR_EN, 1);
     if (ret) {
 	printk("Error writing GPIO (err %d)\n", ret);
 	return ret;
