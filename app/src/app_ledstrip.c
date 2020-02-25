@@ -7,9 +7,9 @@
 /* ledstrip.c - Application LED strip control */
 
 #include <string.h>
-#include <misc/printk.h>
-#include <led_strip.h>
-#include <gpio.h>
+#include <sys/printk.h>
+#include <drivers/led_strip.h>
+#include <drivers/gpio.h>
 
 #define GPIO_OUT_DRV_NAME "GPIO_0"
 #define GPIO_PWR_EN  25
@@ -62,7 +62,7 @@ int app_ledstrip_setup(void)
     }
     printk("Turning on 5V_LED Rail %d\n", GPIO_PWR_EN);
 
-    ret = gpio_pin_write(gpio_out_dev, GPIO_PWR_EN, 1);
+    ret = gpio_pin_set_raw(gpio_out_dev, GPIO_PWR_EN, 1);
     if (ret) {
 	printk("Error writing GPIO (err %d)\n", ret);
 	return ret;
