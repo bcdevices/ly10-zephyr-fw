@@ -7,8 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - uses: ./actions/action-zephyr
-    - uses: ./actions/action-pltcloud
+    - uses: ./.github/actions/action-zephyr
+    - uses: ./.github/actions/action-pltcloud
       if: contains(github.ref, 'tags')
       env:
         API_TOKEN: ${{ secrets.API_TOKEN }}
