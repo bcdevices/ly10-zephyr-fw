@@ -53,7 +53,7 @@ clean:
 prereq:
 	pip3 install -r requirements.txt
 	install -d zephyrproject
-	cd zephyrproject && west init --mr v2.1.0
+	cd zephyrproject && west init --mr v2.2.0-rc1
 	cd zephyrproject && west update
 	pip3 install -r zephyrproject/zephyr/scripts/requirements.txt
 
