@@ -108,9 +108,20 @@ build-CAN: $(CAN_TARGETS)
 .PHONY: build-zephyr-samples
 build-zephyr-samples: build-blinky build-button build-shell build-CAN
 
-#ZEPHYR_BOARD := nrf_pca10040
-ZEPHYR_BOARD := ly10demo
 ZEPHYR_BOARD_ROOT := $(BASE_PATH)
+
+BOARDS_APP :=
+BOARDS_APP += ly10demo
+#BOARDS_APP := nrf52_pca10040
+
+APP_TARGETS := $(patsubst %,build.%/app/zephyr/zephyr.hex,$(BOARDS_APP))
+
+build.%/app/zephyr/zephyr.hex:
+	if [ -d zephyrproject/zephyr ]; then source zephyrproject/zephyr/zephyr-env.sh ; \
+	elif [ -d /usr/src/zephyrproject/zephyr ]; then source /usr/src/zephyrproject/zephyr/zephyr-env.sh ; \
+	else echo "No Zephyr"; fi && \
+          west build --build-dir build.$*/app --pristine auto \
+	  --board $* app -- -DBOARD_ROOT="$(ZEPHYR_BOARD_ROOT)"
 
 .PHONY: versions
 versions:
@@ -118,12 +129,7 @@ versions:
 	@echo "VERSION_TAG: $(VERSION_TAG)"
 
 .PHONY: build
-build: build-zephyr-samples
-	if [ -d zephyrproject/zephyr ]; then source zephyrproject/zephyr/zephyr-env.sh ; \
-	elif [ -d /usr/src/zephyrproject/zephyr ]; then source /usr/src/zephyrproject/zephyr/zephyr-env.sh ; \
-	else echo "No Zephyr"; fi && \
-	  cd app && \
-          west build --pristine auto --board "$(ZEPHYR_BOARD)" -- -DBOARD_ROOT="$(ZEPHYR_BOARD_ROOT)"
+build: build-zephyr-samples $(APP_TARGETS)
 
 .PHONY: clean
 clean:
@@ -148,9 +154,31 @@ dist-clean:
 
 .PHONY: dist
 dist: dist-clean dist-prep build
-	install -m 666 app/build/zephyr/zephyr.hex dist/ly10-zephyr-fw-$(VERSION_TAG).hex
-	install -m 666 app/build/zephyr/zephyr.elf dist/ly10-zephyr-fw-$(VERSION_TAG).elf
-	install -m 666 app/build/zephyr/zephyr.map dist/ly10-zephyr-fw-$(VERSION_TAG).map
+	install -m 666 build.disco_l475_iot1/blinky/zephyr/zephyr.hex dist/zephyr-disco_l475_iot1-sample-blinky-$(VERSION_TAG).hex
+	install -m 666 build.disco_l475_iot1/button/zephyr/zephyr.hex dist/zephyr-disco_l475_iot1-sample-button-$(VERSION_TAG).hex
+	install -m 666 build.disco_l475_iot1/shell/zephyr/zephyr.hex dist/zephyr-disco_l475_iot1-sample-shell-$(VERSION_TAG).hex
+	install -m 666 build.ly10demo/app/zephyr/zephyr.hex dist/ly10-zephyr-fw-$(VERSION_TAG).hex 
+	install -m 666 build.ly10demo/app/zephyr/zephyr.elf dist/ly10-zephyr-fw-$(VERSION_TAG).elf 
+	install -m 666 build.ly10demo/app/zephyr/zephyr.map dist/ly10-zephyr-fw-$(VERSION_TAG).map 
+	install -m 666 build.nrf52_pca10040/blinky/zephyr/zephyr.hex dist/zephyr-nrf52_pca10040-sample-blinky-$(VERSION_TAG).hex
+	install -m 666 build.nrf52_pca10040/button/zephyr/zephyr.hex dist/zephyr-nrf52_pca10040-sample-blinky-$(VERSION_TAG).hex
+	install -m 666 build.nrf52_pca10040/shell/zephyr/zephyr.hex dist/zephyr-nrf52_pca10040-sample-blinky-$(VERSION_TAG).hex
+	install -m 666 build.nrf9160_pca10090/blinky/zephyr/zephyr.hex dist/zephyr-nrf9160_pca10090-sample-blinky-$(VERSION_TAG).hex
+	install -m 666 build.nrf9160_pca10090/button/zephyr/zephyr.hex dist/zephyr-nrf9160_pca10090-sample-blinky-$(VERSION_TAG).hex
+	install -m 666 build.nrf9160_pca10090/shell/zephyr/zephyr.hex dist/zephyr-nrf9160_pca10090-sample-blinky-$(VERSION_TAG).hex
+	install -m 666 build.nucleo_f207zg/blinky/zephyr/zephyr.hex dist/zephyr-nucleo_f207zg-sample-blinky-$(VERSION_TAG).hex
+	install -m 666 build.nucleo_f207zg/button/zephyr/zephyr.hex dist/zephyr-nucleo_f207zg-sample-blinky-$(VERSION_TAG).hex
+	install -m 666 build.nucleo_f207zg/shell/zephyr/zephyr.hex dist/zephyr-nucleo_f207zg-sample-blinky-$(VERSION_TAG).hex
+	install -m 666 build.nucleo_f401re/blinky/zephyr/zephyr.hex dist/zephyr-nucleo_f401re-sample-blinky-$(VERSION_TAG).hex
+	install -m 666 build.nucleo_f401re/button/zephyr/zephyr.hex dist/zephyr-nucleo_f401re-sample-blinky-$(VERSION_TAG).hex
+	install -m 666 build.nucleo_f401re/shell/zephyr/zephyr.hex dist/zephyr-nucleo_f401re-sample-blinky-$(VERSION_TAG).hex
+	install -m 666 build.nucleo_l432kc/blinky/zephyr/zephyr.hex dist/zephyr-nucleo_l432kc-sample-blinky-$(VERSION_TAG).hex
+	install -m 666 build.nucleo_l432kc/CAN/zephyr/zephyr.hex dist/zephyr-nucleo_l432kc-sample-blinky-$(VERSION_TAG).hex
+	install -m 666 build.nucleo_l432kc/shell/zephyr/zephyr.hex dist/zephyr-nucleo_l432kc-sample-blinky-$(VERSION_TAG).hex
+	install -m 666 build.stm32f4_disco/blinky/zephyr/zephyr.hex dist/zephyr-stm32f4_disco-sample-blinky-$(VERSION_TAG).hex
+	install -m 666 build.stm32f4_disco/button/zephyr/zephyr.hex dist/zephyr-stm32f4_disco-sample-blinky-$(VERSION_TAG).hex
+	install -m 666 build.stm32f4_disco/CAN/zephyr/zephyr.hex dist/zephyr-stm32f4_disco-sample-blinky-$(VERSION_TAG).hex
+	install -m 666 build.stm32f4_disco/shell/zephyr/zephyr.hex dist/zephyr-stm32f4_disco-sample-blinky-$(VERSION_TAG).hex
 	sed 's/{{VERSION}}/$(VERSION_TAG)/g' test-suites/suite-LY10-zephyr.yaml.template > dist/suite-LY10-zephyr-$(VERSION_TAG).yaml
 
 .PHONY: deploy
