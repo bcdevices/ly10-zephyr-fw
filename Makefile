@@ -28,6 +28,34 @@ DOCKER_BUILD_ARGS += --network=host
 DOCKER_RUN_ARGS :=
 DOCKER_RUN_ARGS += --network=none
 
+BOARDS_COMMON :=
+BOARDS_COMMON += nrf52_pca10040
+BOARDS_COMMON += nrf9160_pca10090
+BOARDS_COMMON += stm32f4_disco
+BOARDS_COMMON += nucleo_f207zg
+BOARDS_COMMON += nucleo_f401re
+BOARDS_COMMON += nucleo_l432kc
+BOARDS_COMMON += disco_l475_iot1
+
+BLINKY_TARGETS := $(patsubst %,build.%/blinky/zephyr/zephyr.hex,$(BOARDS_COMMON))
+
+build.%/blinky/zephyr/zephyr.hex:
+	# YCL: backref
+	if [ -d zephyrproject/zephyr ]; then source zephyrproject/zephyr/zephyr-env.sh ; \
+	elif [ -d /usr/src/zephyrproject/zephyr ]; then source /usr/src/zephyrproject/zephyr/zephyr-env.sh ; \
+	else echo "No Zephyr"; fi && \
+	west --builddir build.% \
+	  --board % --pristine \
+	  $(ZEPHYR_BASE)/samples/basic/blinky \
+	fi
+
+.PHONY: bt
+bt:
+	echo $(BLINKY_TARGETS)
+
+.PHONY: build-blinky
+build-blinky: $(BLINKY_TARGETS)
+
 #ZEPHYR_BOARD := nrf_pca10040
 ZEPHYR_BOARD := ly10demo
 ZEPHYR_BOARD_ROOT := $(BASE_PATH)
