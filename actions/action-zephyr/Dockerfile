@@ -4,7 +4,7 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-FROM bcdevices/zephyr-west:zephyr-2.1.0-1
+FROM bcdevices/zephyr-west:latest
 
 LABEL "com.github.actions.name"="Zephyr build"
 LABEL "com.github.actions.description"="Build Zephyr project"
