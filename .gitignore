@@ -5,6 +5,9 @@
 # 'dist' folder
 /dist/
 
+# Zephyr samples build
+/build.*/
+
 # From Zephyr SDK
 build/
 /zephyrproject/
