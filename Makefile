@@ -39,6 +39,14 @@ BOARDS_COMMON += disco_l475_iot1
 
 BLINKY_TARGETS := $(patsubst %,build.%/blinky/zephyr/zephyr.hex,$(BOARDS_COMMON))
 
+BOARDS_GSM_MODEM :=
+BOARDS_GSM_MODEM += nrf52_pca10040
+BOARDS_GSM_MODEM += stm32f4_disco
+BOARDS_GSM_MODEM += nucleo_l432kc
+BOARDS_GSM_MODEM += disco_l475_iot1
+
+GSM_MODEM_TARGETS := $(patsubst %,build.%/gsm_modem/zephyr/zephyr.hex,$(BOARDS_GSM_MODEM))
+
 BOARDS_CAN :=
 BOARDS_CAN += stm32f4_disco
 BOARDS_CAN += nucleo_l432kc
@@ -75,6 +83,15 @@ build.%/button/zephyr/zephyr.hex:
 	  --board $* --pristine auto \
 	  $$ZEPHYR_BASE/samples/basic/button
 
+build.%/gsm_modem/zephyr/zephyr.hex:
+	mkdir -p build.$*/gsm_modem
+	if [ -d zephyrproject/zephyr ]; then source zephyrproject/zephyr/zephyr-env.sh ; \
+	elif [ -d /usr/src/zephyrproject/zephyr ]; then source /usr/src/zephyrproject/zephyr/zephyr-env.sh ; \
+	else echo "No Zephyr"; fi && \
+	west build --build-dir build.$*/gsm_modem \
+	  --board $* --pristine auto \
+	  $$ZEPHYR_BASE/samples/net/gsm_modem
+
 build.%/shell/zephyr/zephyr.hex:
 	mkdir -p build.$*/shell
 	if [ -d zephyrproject/zephyr ]; then source zephyrproject/zephyr/zephyr-env.sh ; \
@@ -98,6 +115,9 @@ build-blinky: $(BLINKY_TARGETS)
 
 .PHONY: build-button
 build-button: $(BUTTON_TARGETS)
+
+.PHONY: build-gsm_modem
+build-gsm_modem: $(GSM_MODEM_TARGETS)
 
 .PHONY: build-shell
 build-shell: $(SHELL_TARGETS)
@@ -139,7 +159,7 @@ clean:
 prereq:
 	pip3 install -r requirements.txt
 	install -d zephyrproject
-	cd zephyrproject && west init --mr v2.2.0-rc1
+	cd zephyrproject && west init --mr v2.2.0-rc2
 	cd zephyrproject && west update
 	pip3 install -r zephyrproject/zephyr/scripts/requirements.txt
 
@@ -155,12 +175,14 @@ dist-clean:
 dist: dist-clean dist-prep build
 	install -m 666 build.disco_l475_iot1/blinky/zephyr/zephyr.hex dist/zephyr-disco_l475_iot1-sample-blinky-$(VERSION_TAG).hex
 	install -m 666 build.disco_l475_iot1/button/zephyr/zephyr.hex dist/zephyr-disco_l475_iot1-sample-button-$(VERSION_TAG).hex
+	install -m 666 build.disco_l475_iot1/gsm_modem/zephyr/zephyr.hex dist/zephyr-disco_l475_iot1-sample-gsm_modem-$(VERSION_TAG).hex
 	install -m 666 build.disco_l475_iot1/shell/zephyr/zephyr.hex dist/zephyr-disco_l475_iot1-sample-shell-$(VERSION_TAG).hex
 	install -m 666 build.ly10demo/app/zephyr/zephyr.hex dist/ly10-zephyr-fw-$(VERSION_TAG).hex 
 	install -m 666 build.ly10demo/app/zephyr/zephyr.elf dist/ly10-zephyr-fw-$(VERSION_TAG).elf 
 	install -m 666 build.ly10demo/app/zephyr/zephyr.map dist/ly10-zephyr-fw-$(VERSION_TAG).map 
 	install -m 666 build.nrf52_pca10040/blinky/zephyr/zephyr.hex dist/zephyr-nrf52_pca10040-sample-blinky-$(VERSION_TAG).hex
 	install -m 666 build.nrf52_pca10040/button/zephyr/zephyr.hex dist/zephyr-nrf52_pca10040-sample-button-$(VERSION_TAG).hex
+	install -m 666 build.nrf52_pca10040/gsm_modem/zephyr/zephyr.hex dist/zephyr-nrf52_pca10040-sample-gsm_modem-$(VERSION_TAG).hex
 	install -m 666 build.nrf52_pca10040/shell/zephyr/zephyr.hex dist/zephyr-nrf52_pca10040-sample-shell-$(VERSION_TAG).hex
 	install -m 666 build.nrf9160_pca10090/blinky/zephyr/zephyr.hex dist/zephyr-nrf9160_pca10090-sample-blinky-$(VERSION_TAG).hex
 	install -m 666 build.nrf9160_pca10090/button/zephyr/zephyr.hex dist/zephyr-nrf9160_pca10090-sample-button-$(VERSION_TAG).hex
@@ -173,10 +195,12 @@ dist: dist-clean dist-prep build
 	install -m 666 build.nucleo_f401re/shell/zephyr/zephyr.hex dist/zephyr-nucleo_f401re-sample-shell-$(VERSION_TAG).hex
 	install -m 666 build.nucleo_l432kc/blinky/zephyr/zephyr.hex dist/zephyr-nucleo_l432kc-sample-blinky-$(VERSION_TAG).hex
 	install -m 666 build.nucleo_l432kc/CAN/zephyr/zephyr.hex dist/zephyr-nucleo_l432kc-sample-CAN-$(VERSION_TAG).hex
+	install -m 666 build.nucleo_l432kc/gsm_modem/zephyr/zephyr.hex dist/zephyr-nucleo_l432kc-sample-gsm_modem-$(VERSION_TAG).hex
 	install -m 666 build.nucleo_l432kc/shell/zephyr/zephyr.hex dist/zephyr-nucleo_l432kc-sample-shell-$(VERSION_TAG).hex
 	install -m 666 build.stm32f4_disco/blinky/zephyr/zephyr.hex dist/zephyr-stm32f4_disco-sample-blinky-$(VERSION_TAG).hex
 	install -m 666 build.stm32f4_disco/button/zephyr/zephyr.hex dist/zephyr-stm32f4_disco-sample-button-$(VERSION_TAG).hex
 	install -m 666 build.stm32f4_disco/CAN/zephyr/zephyr.hex dist/zephyr-stm32f4_disco-sample-CAN-$(VERSION_TAG).hex
+	install -m 666 build.stm32f4_disco/gsm_modem/zephyr/zephyr.hex dist/zephyr-stm32f4_disco-sample-gsm_modem-$(VERSION_TAG).hex
 	install -m 666 build.stm32f4_disco/shell/zephyr/zephyr.hex dist/zephyr-stm32f4_disco-sample-shell-$(VERSION_TAG).hex
 	sed 's/{{VERSION}}/$(VERSION_TAG)/g' test-suites/suite-LY10-zephyr.yaml.template > dist/suite-LY10-zephyr-$(VERSION_TAG).yaml
 
