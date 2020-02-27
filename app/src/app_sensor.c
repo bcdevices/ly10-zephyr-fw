@@ -6,10 +6,10 @@
 
 /* app_sensor.c - Sensor interface */
 
+#include <stdio.h>
 #include <zephyr.h>
 #include <device.h>
-#include <sensor.h>
-#include <stdio.h>
+#include <drivers/sensor.h>
 
 int app_sensor_setup(void)
 {

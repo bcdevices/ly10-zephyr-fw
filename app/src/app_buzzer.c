@@ -8,10 +8,7 @@
 
 #include <zephyr.h>
 #include <device.h>
-#include <sensor.h>
-#include <stdio.h>
-#include <gpio.h>
-#include <pwm.h>
+#include <drivers/pwm.h>
 
 #define PERIOD_INIT    1500
 #define BUZZER_PIN     22
@@ -59,9 +56,9 @@ int app_buzzer_setup(void)
 
     for (int i = 0; i < ARRAY_LEN(note_periods); i++) {
 	period = note_periods[i];
-	pwm_pin_set_usec(pwm, PWM_CHANNEL, period, period / 2U);
+	pwm_pin_set_usec(pwm, PWM_CHANNEL, period, period / 2U, 0);
 	k_sleep(BEEP_DURATION);
-	pwm_pin_set_usec(pwm, PWM_CHANNEL, period, 0);
+	pwm_pin_set_usec(pwm, PWM_CHANNEL, period, 0, 0);
 	k_sleep(PAUSE_DURATION);
     }
 
