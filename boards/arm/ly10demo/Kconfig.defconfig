@@ -9,34 +9,6 @@ if BOARD_LY10DEMO
 config BOARD
 	default "ly10demo"
 
-if ADC
-
-config ADC_0
-	default y
-
-endif # ADC
-
-if I2C
-
-config I2C_0
-	default y
-
-endif # I2C
-
-if PWM
-
-config PWM_0
-	default y
-
-endif # PWM
-
-if SPI
-
-config SPI_1
-	default y
-
-endif # SPI
-
 config BT_CTLR
 	default BT
 

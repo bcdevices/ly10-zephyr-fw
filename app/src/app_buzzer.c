@@ -16,19 +16,15 @@
 #define PAUSE_DURATION  K_MSEC(1)
 #define US_TO_HZ(_us)  (USEC_PER_SEC / (_us))
 
-#if defined(CONFIG_SOC_FAMILY_NRF)
-#if defined(CONFIG_PWM_NRF5_SW)
-#define PWM_DRIVER CONFIG_PWM_NRF5_SW_0_DEV_NAME
-#else
-#define PWM_DRIVER DT_NORDIC_NRF_PWM_PWM_0_LABEL
-#endif				/* CONFIG_PWM_NRF5_SW */
+#define PWM_NODE DT_ALIAS(pwm_buzzer)
+
+#if DT_NODE_HAS_STATUS(PWM_NODE, okay)
+#define PWM_LABEL DT_LABEL(PWM_NODE)
 #define PWM_CHANNEL BUZZER_PIN
-#elif defined(PWM_BUZZER0_PWM_CONTROLLER) && defined(PWM_BUZZER0_PWM_CHANNEL)
-/* get the defines from dt (based on alias 'pwm-buzzer0') */
-#define PWM_DRIVER      PWM_BUZZER0_PWM_CONTROLLER
-#define PWM_CHANNEL     PWM_BUZZER0_PWM_CHANNEL
 #else
-#error "Choose supported PWM driver"
+#error "Unsupported board: pwm-buzzer devicetree alias is not defined or enabled"
+#define PWM_LABEL 0
+#define PWM_CHANNEL 0
 #endif
 
 static u32_t period = PERIOD_INIT;
@@ -49,7 +45,7 @@ int app_buzzer_setup(void)
 {
     struct device *pwm;
 
-    pwm = device_get_binding(PWM_DRIVER);
+    pwm = device_get_binding(PWM_LABEL);
     if (NULL == pwm) {
 	return -1;
     }

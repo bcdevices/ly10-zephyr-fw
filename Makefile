@@ -29,8 +29,8 @@ DOCKER_RUN_ARGS :=
 DOCKER_RUN_ARGS += --network=none
 
 BOARDS_COMMON :=
-BOARDS_COMMON += nrf52_pca10040
-BOARDS_COMMON += nrf9160_pca10090
+BOARDS_COMMON += nrf52dk_nrf52832
+BOARDS_COMMON += nrf9160dk_nrf9160
 BOARDS_COMMON += stm32f4_disco
 BOARDS_COMMON += nucleo_f207zg
 BOARDS_COMMON += nucleo_f401re
@@ -40,8 +40,8 @@ BOARDS_COMMON += disco_l475_iot1
 BLINKY_TARGETS := $(patsubst %,build.%/blinky/zephyr/zephyr.hex,$(BOARDS_COMMON))
 
 BOARDS_BUTTON :=
-BOARDS_BUTTON += nrf52_pca10040
-BOARDS_BUTTON += nrf9160_pca10090
+BOARDS_BUTTON += nrf52dk_nrf52832
+BOARDS_BUTTON += nrf9160dk_nrf9160
 BOARDS_BUTTON += stm32f4_disco
 BOARDS_BUTTON += nucleo_f207zg
 BOARDS_BUTTON += nucleo_f401re
@@ -53,28 +53,32 @@ BOARDS_CAN :=
 BOARDS_CAN += stm32f4_disco
 BOARDS_CAN += nucleo_l432kc
 
-CAN_TARGETS := $(patsubst %,build.%/CAN/zephyr/zephyr.hex,$(BOARDS_CAN))
+CAN_TARGETS := $(patsubst %,build.%/can/zephyr/zephyr.hex,$(BOARDS_CAN))
 
 BOARDS_GSM_MODEM :=
-BOARDS_GSM_MODEM += nrf52_pca10040
-BOARDS_GSM_MODEM += stm32f4_disco
-BOARDS_GSM_MODEM += nucleo_l432kc
+BOARDS_GSM_MODEM += nrf52dk_nrf52832
+#BOARDS_GSM_MODEM += stm32f4_disco # undefined references to `sys_rand32_get'
+#BOARDS_GSM_MODEM += nucleo_l432kc # undefined references to `sys_rand32_get'
 BOARDS_GSM_MODEM += disco_l475_iot1
 
 GSM_MODEM_TARGETS := $(patsubst %,build.%/gsm_modem/zephyr/zephyr.hex,$(BOARDS_GSM_MODEM))
 
 BOARDS_SERVO_MOTOR :=
-BOARDS_SERVO_MOTOR += nrf52_pca10040
-BOARDS_SERVO_MOTOR += nrf9160_pca10090
+#BOARDS_SERVO_MOTOR += nrf52dk_nrf52832 # Unsupported board
+#BOARDS_SERVO_MOTOR += nrf9160dk_nrf9160 # Unsupported board
 
 SERVO_MOTOR_TARGETS := $(patsubst %,build.%/servo_motor/zephyr/zephyr.hex,$(BOARDS_SERVO_MOTOR))
 
 SHELL_TARGETS := $(patsubst %,build.%/shell/zephyr/zephyr.hex,$(BOARDS_COMMON))
 
+ZEPHYR_SYSROOT := /usr/src/zephyrproject/zephyr
+#ZEPHYR_SYSROOT := /usr/src/zephyr-2.3.0/zephyr
+ZEPHYR_USRROOT := $(HOME)/src/zephyr-2.3.0/zephyr
+
 build.%/blinky/zephyr/zephyr.hex:
 	mkdir -p build.$*/blinky
-	if [ -d zephyrproject/zephyr ]; then source zephyrproject/zephyr/zephyr-env.sh ; \
-	elif [ -d /usr/src/zephyrproject/zephyr ]; then source /usr/src/zephyrproject/zephyr/zephyr-env.sh ; \
+	if [ -d $(ZEPHYR_USRROOT) ]; then source $(ZEPHYR_USRROOT)/zephyr-env.sh ; \
+	elif [ -d $(ZEPHYR_SYSROOT) ]; then source $(ZEPHYR_SYSROOT)/zephyr-env.sh ; \
 	else echo "No Zephyr"; fi && \
 	west build --build-dir build.$*/blinky \
 	  --board $* --pristine auto \
@@ -82,8 +86,8 @@ build.%/blinky/zephyr/zephyr.hex:
 
 build.%/button/zephyr/zephyr.hex:
 	mkdir -p build.$*/button
-	if [ -d zephyrproject/zephyr ]; then source zephyrproject/zephyr/zephyr-env.sh ; \
-	elif [ -d /usr/src/zephyrproject/zephyr ]; then source /usr/src/zephyrproject/zephyr/zephyr-env.sh ; \
+	if [ -d $(ZEPHYR_USRROOT) ]; then source $(ZEPHYR_USRROOT)/zephyr-env.sh ; \
+	elif [ -d $(ZEPHYR_SYSROOT) ]; then source $(ZEPHYR_SYSROOT)/zephyr-env.sh ; \
 	else echo "No Zephyr"; fi && \
 	west build --build-dir build.$*/button \
 	  --board $* --pristine auto \
@@ -91,8 +95,8 @@ build.%/button/zephyr/zephyr.hex:
 
 build.%/gsm_modem/zephyr/zephyr.hex:
 	mkdir -p build.$*/gsm_modem
-	if [ -d zephyrproject/zephyr ]; then source zephyrproject/zephyr/zephyr-env.sh ; \
-	elif [ -d /usr/src/zephyrproject/zephyr ]; then source /usr/src/zephyrproject/zephyr/zephyr-env.sh ; \
+	if [ -d $(ZEPHYR_USRROOT) ]; then source $(ZEPHYR_USRROOT)/zephyr-env.sh ; \
+	elif [ -d $(ZEPHYR_SYSROOT) ]; then source $(ZEPHYR_SYSROOT)/zephyr-env.sh ; \
 	else echo "No Zephyr"; fi && \
 	west build --build-dir build.$*/gsm_modem \
 	  --board $* --pristine auto \
@@ -100,8 +104,8 @@ build.%/gsm_modem/zephyr/zephyr.hex:
 
 build.%/servo_motor/zephyr/zephyr.hex:
 	mkdir -p build.$*/servo_motor
-	if [ -d zephyrproject/zephyr ]; then source zephyrproject/zephyr/zephyr-env.sh ; \
-	elif [ -d /usr/src/zephyrproject/zephyr ]; then source /usr/src/zephyrproject/zephyr/zephyr-env.sh ; \
+	if [ -d $(ZEPHYR_USRROOT) ]; then source $(ZEPHYR_USRROOT)/zephyr-env.sh ; \
+	elif [ -d $(ZEPHYR_SYSROOT) ]; then source $(ZEPHYR_SYSROOT)/zephyr-env.sh ; \
 	else echo "No Zephyr"; fi && \
 	west build --build-dir build.$*/servo_motor \
 	  --board $* --pristine auto \
@@ -109,21 +113,21 @@ build.%/servo_motor/zephyr/zephyr.hex:
 
 build.%/shell/zephyr/zephyr.hex:
 	mkdir -p build.$*/shell
-	if [ -d zephyrproject/zephyr ]; then source zephyrproject/zephyr/zephyr-env.sh ; \
-	elif [ -d /usr/src/zephyrproject/zephyr ]; then source /usr/src/zephyrproject/zephyr/zephyr-env.sh ; \
+	if [ -d $(ZEPHYR_USRROOT) ]; then source $(ZEPHYR_USRROOT)/zephyr-env.sh ; \
+	elif [ -d $(ZEPHYR_SYSROOT) ]; then source $(ZEPHYR_SYSROOT)/zephyr-env.sh ; \
 	else echo "No Zephyr"; fi && \
 	west build --build-dir build.$*/shell \
 	  --board $* --pristine auto \
 	  $$ZEPHYR_BASE/samples/subsys/shell/shell_module 
 
-build.%/CAN/zephyr/zephyr.hex:
-	mkdir -p build.$*/CAN
-	if [ -d zephyrproject/zephyr ]; then source zephyrproject/zephyr/zephyr-env.sh ; \
-	elif [ -d /usr/src/zephyrproject/zephyr ]; then source /usr/src/zephyrproject/zephyr/zephyr-env.sh ; \
+build.%/can/zephyr/zephyr.hex:
+	mkdir -p build.$*/can
+	if [ -d $(ZEPHYR_USRROOT) ]; then source $(ZEPHYR_USRROOT)/zephyr-env.sh ; \
+	elif [ -d $(ZEPHYR_SYSROOT) ]; then source $(ZEPHYR_SYSROOT)/zephyr-env.sh ; \
 	else echo "No Zephyr"; fi && \
-	west build --build-dir build.$*/CAN \
+	west build --build-dir build.$*/can \
 	  --board $* --pristine auto \
-	  $$ZEPHYR_BASE/samples/drivers/CAN
+	  $$ZEPHYR_BASE/samples/drivers/can
 
 .PHONY: build-blinky
 build-blinky: $(BLINKY_TARGETS)
@@ -144,19 +148,20 @@ build-shell: $(SHELL_TARGETS)
 build-CAN: $(CAN_TARGETS)
 
 .PHONY: build-zephyr-samples
-build-zephyr-samples: build-blinky build-button build-shell build-CAN build-gsm_modem build-servo_motor
+#build-zephyr-samples: build-blinky build-button build-shell build-CAN build-gsm_modem build-servo_motor
+build-zephyr-samples: build-blinky build-button build-shell build-CAN build-gsm_modem
 
 ZEPHYR_BOARD_ROOT := $(BASE_PATH)
 
 BOARDS_APP :=
 BOARDS_APP += ly10demo
-#BOARDS_APP := nrf52_pca10040
+#BOARDS_APP := nrf52dk_nrf52832
 
 APP_TARGETS := $(patsubst %,build.%/app/zephyr/zephyr.hex,$(BOARDS_APP))
 
 build.%/app/zephyr/zephyr.hex:
-	if [ -d zephyrproject/zephyr ]; then source zephyrproject/zephyr/zephyr-env.sh ; \
-	elif [ -d /usr/src/zephyrproject/zephyr ]; then source /usr/src/zephyrproject/zephyr/zephyr-env.sh ; \
+	if [ -d $(ZEPHYR_USRROOT) ]; then source $(ZEPHYR_USRROOT)/zephyr-env.sh ; \
+	elif [ -d $(ZEPHYR_SYSROOT) ]; then source $(ZEPHYR_SYSROOT)/zephyr-env.sh ; \
 	else echo "No Zephyr"; fi && \
           west build --build-dir build.$*/app --pristine auto \
 	  --board $* app -- -DBOARD_ROOT="$(ZEPHYR_BOARD_ROOT)"
@@ -179,7 +184,7 @@ prereq:
 	install -d zephyrproject
 	cd zephyrproject && west init --mr v2.2.0-rc2
 	cd zephyrproject && west update
-	pip3 install -r zephyrproject/zephyr/scripts/requirements.txt
+	pip3 install -r $(ZEPHYR_USRROOT)/scripts/requirements.txt
 
 .PHONY: dist-prep
 dist-prep:
@@ -198,15 +203,15 @@ dist: dist-clean dist-prep build
 	install -m 666 build.ly10demo/app/zephyr/zephyr.hex dist/ly10-zephyr-fw-$(VERSION_TAG).hex 
 	install -m 666 build.ly10demo/app/zephyr/zephyr.elf dist/ly10-zephyr-fw-$(VERSION_TAG).elf 
 	install -m 666 build.ly10demo/app/zephyr/zephyr.map dist/ly10-zephyr-fw-$(VERSION_TAG).map 
-	install -m 666 build.nrf52_pca10040/servo_motor/zephyr/zephyr.hex dist/zephyr-nrf52_pca100400-sample-servo_motor-$(VERSION_TAG).hex
-	install -m 666 build.nrf52_pca10040/blinky/zephyr/zephyr.hex dist/zephyr-nrf52_pca10040-sample-blinky-$(VERSION_TAG).hex
-	install -m 666 build.nrf52_pca10040/button/zephyr/zephyr.hex dist/zephyr-nrf52_pca10040-sample-button-$(VERSION_TAG).hex
-	install -m 666 build.nrf52_pca10040/gsm_modem/zephyr/zephyr.hex dist/zephyr-nrf52_pca10040-sample-gsm_modem-$(VERSION_TAG).hex
-	install -m 666 build.nrf52_pca10040/shell/zephyr/zephyr.hex dist/zephyr-nrf52_pca10040-sample-shell-$(VERSION_TAG).hex
-	install -m 666 build.nrf9160_pca10090/blinky/zephyr/zephyr.hex dist/zephyr-nrf9160_pca10090-sample-blinky-$(VERSION_TAG).hex
-	install -m 666 build.nrf9160_pca10090/button/zephyr/zephyr.hex dist/zephyr-nrf9160_pca10090-sample-button-$(VERSION_TAG).hex
-	install -m 666 build.nrf9160_pca10090/servo_motor/zephyr/zephyr.hex dist/zephyr-nrf9160_pca10090-sample-servo_motor-$(VERSION_TAG).hex
-	install -m 666 build.nrf9160_pca10090/shell/zephyr/zephyr.hex dist/zephyr-nrf9160_pca10090-sample-shell-$(VERSION_TAG).hex
+	#install -m 666 build.nrf52dk_nrf52832/servo_motor/zephyr/zephyr.hex dist/zephyr-nrf52dk_nrf528320-sample-servo_motor-$(VERSION_TAG).hex
+	install -m 666 build.nrf52dk_nrf52832/blinky/zephyr/zephyr.hex dist/zephyr-nrf52dk_nrf52832-sample-blinky-$(VERSION_TAG).hex
+	install -m 666 build.nrf52dk_nrf52832/button/zephyr/zephyr.hex dist/zephyr-nrf52dk_nrf52832-sample-button-$(VERSION_TAG).hex
+	install -m 666 build.nrf52dk_nrf52832/gsm_modem/zephyr/zephyr.hex dist/zephyr-nrf52dk_nrf52832-sample-gsm_modem-$(VERSION_TAG).hex
+	install -m 666 build.nrf52dk_nrf52832/shell/zephyr/zephyr.hex dist/zephyr-nrf52dk_nrf52832-sample-shell-$(VERSION_TAG).hex
+	install -m 666 build.nrf9160dk_nrf9160/blinky/zephyr/zephyr.hex dist/zephyr-nrf9160dk_nrf9160-sample-blinky-$(VERSION_TAG).hex
+	install -m 666 build.nrf9160dk_nrf9160/button/zephyr/zephyr.hex dist/zephyr-nrf9160dk_nrf9160-sample-button-$(VERSION_TAG).hex
+	#install -m 666 build.nrf9160dk_nrf9160/servo_motor/zephyr/zephyr.hex dist/zephyr-nrf9160dk_nrf9160-sample-servo_motor-$(VERSION_TAG).hex
+	install -m 666 build.nrf9160dk_nrf9160/shell/zephyr/zephyr.hex dist/zephyr-nrf9160dk_nrf9160-sample-shell-$(VERSION_TAG).hex
 	install -m 666 build.nucleo_f207zg/blinky/zephyr/zephyr.hex dist/zephyr-nucleo_f207zg-sample-blinky-$(VERSION_TAG).hex
 	install -m 666 build.nucleo_f207zg/button/zephyr/zephyr.hex dist/zephyr-nucleo_f207zg-sample-button-$(VERSION_TAG).hex
 	install -m 666 build.nucleo_f207zg/shell/zephyr/zephyr.hex dist/zephyr-nucleo_f207zg-sample-shell-$(VERSION_TAG).hex
@@ -214,13 +219,13 @@ dist: dist-clean dist-prep build
 	install -m 666 build.nucleo_f401re/button/zephyr/zephyr.hex dist/zephyr-nucleo_f401re-sample-button-$(VERSION_TAG).hex
 	install -m 666 build.nucleo_f401re/shell/zephyr/zephyr.hex dist/zephyr-nucleo_f401re-sample-shell-$(VERSION_TAG).hex
 	install -m 666 build.nucleo_l432kc/blinky/zephyr/zephyr.hex dist/zephyr-nucleo_l432kc-sample-blinky-$(VERSION_TAG).hex
-	install -m 666 build.nucleo_l432kc/CAN/zephyr/zephyr.hex dist/zephyr-nucleo_l432kc-sample-CAN-$(VERSION_TAG).hex
-	install -m 666 build.nucleo_l432kc/gsm_modem/zephyr/zephyr.hex dist/zephyr-nucleo_l432kc-sample-gsm_modem-$(VERSION_TAG).hex
+	install -m 666 build.nucleo_l432kc/can/zephyr/zephyr.hex dist/zephyr-nucleo_l432kc-sample-can-$(VERSION_TAG).hex
+	#install -m 666 build.nucleo_l432kc/gsm_modem/zephyr/zephyr.hex dist/zephyr-nucleo_l432kc-sample-gsm_modem-$(VERSION_TAG).hex
 	install -m 666 build.nucleo_l432kc/shell/zephyr/zephyr.hex dist/zephyr-nucleo_l432kc-sample-shell-$(VERSION_TAG).hex
 	install -m 666 build.stm32f4_disco/blinky/zephyr/zephyr.hex dist/zephyr-stm32f4_disco-sample-blinky-$(VERSION_TAG).hex
 	install -m 666 build.stm32f4_disco/button/zephyr/zephyr.hex dist/zephyr-stm32f4_disco-sample-button-$(VERSION_TAG).hex
-	install -m 666 build.stm32f4_disco/CAN/zephyr/zephyr.hex dist/zephyr-stm32f4_disco-sample-CAN-$(VERSION_TAG).hex
-	install -m 666 build.stm32f4_disco/gsm_modem/zephyr/zephyr.hex dist/zephyr-stm32f4_disco-sample-gsm_modem-$(VERSION_TAG).hex
+	install -m 666 build.stm32f4_disco/can/zephyr/zephyr.hex dist/zephyr-stm32f4_disco-sample-can-$(VERSION_TAG).hex
+	#install -m 666 build.stm32f4_disco/gsm_modem/zephyr/zephyr.hex dist/zephyr-stm32f4_disco-sample-gsm_modem-$(VERSION_TAG).hex
 	install -m 666 build.stm32f4_disco/shell/zephyr/zephyr.hex dist/zephyr-stm32f4_disco-sample-shell-$(VERSION_TAG).hex
 	sed 's/{{VERSION}}/$(VERSION_TAG)/g' test-suites/suite-LY10-zephyr.yaml.template > dist/suite-LY10-zephyr-$(VERSION_TAG).yaml
 

@@ -4,11 +4,9 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-if BOARD_LY10DEMO
 
 config BOARD_ENABLE_DCDC
 	bool "Enable DCDC mode"
 	select SOC_DCDC_NRF52X
 	default y
-
-endif # BOARD_LY10DEMO
+	depends on BOARD_LY10DEMO

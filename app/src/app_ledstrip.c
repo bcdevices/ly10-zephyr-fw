@@ -69,7 +69,8 @@ int app_ledstrip_setup(void)
     }
 
     /* APA102 Strip */
-    strip = device_get_binding(DT_INST_0_APA_APA102_LABEL);
+    strip = device_get_binding(DT_LABEL(DT_INST(0, apa_apa102)));
+
     if (!strip) {
 	printk("Cannot find %s!\n", GPIO_OUT_DRV_NAME);
 	return -1;
