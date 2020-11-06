@@ -18,7 +18,7 @@ static const struct bt_data ad[] = {
     BT_DATA_BYTES(BT_DATA_UUID16_ALL, 0x0a, 0x18),
 };
 
-static void connected(struct bt_conn *conn, u8_t err)
+static void connected(struct bt_conn *conn, uint8_t err)
 {
     if (err) {
 	printk("Connection failed (err %u)\n", err);
@@ -27,7 +27,7 @@ static void connected(struct bt_conn *conn, u8_t err)
     }
 }
 
-static void disconnected(struct bt_conn *conn, u8_t reason)
+static void disconnected(struct bt_conn *conn, uint8_t reason)
 {
     printk("Disconnected (reason %u)\n", reason);
 }
@@ -58,7 +58,7 @@ int app_ble(void)
     printk("Advertising successfully started on the Demo Board\n");
 
     // Get MAC Address
-    u8_t *bd_addr = (u8_t *) ll_addr_get(1, NULL);	// '1' as first parameter indicates we are seeking the 'random' BD address
+    uint8_t *bd_addr = (uint8_t *) ll_addr_get(1, NULL);	// '1' as first parameter indicates we are seeking the 'random' BD address
     printk("Random BD Address: %02x:%02x:%02x:%02x:%02x:%02x\n",
 	   bd_addr[5], bd_addr[4], bd_addr[3],
 	   bd_addr[2], bd_addr[1], bd_addr[0]);

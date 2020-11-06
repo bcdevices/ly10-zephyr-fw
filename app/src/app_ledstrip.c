@@ -15,7 +15,7 @@
 #define GPIO_PWR_EN  25
 #define STRIP_NUM_LEDS 4
 
-static struct device *strip;
+static const struct device *strip;
 static size_t ledstrip_counter = 0;
 
 static const struct led_rgb colors[] = {
@@ -45,7 +45,7 @@ const struct led_rgb *color_at(size_t time, size_t i)
 
 int app_ledstrip_setup(void)
 {
-    struct device *gpio_out_dev;
+    const struct device *gpio_out_dev;
     int ret;
 
     gpio_out_dev = device_get_binding(GPIO_OUT_DRV_NAME);

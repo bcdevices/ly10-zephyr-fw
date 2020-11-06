@@ -14,7 +14,7 @@
 int app_sensor_setup(void)
 {
     struct sensor_value temp, hum;
-    struct device *dev = device_get_binding("SHT3XD");
+    const struct device *dev = device_get_binding("SHT3XD");
     int rc;
 
     if (dev == NULL) {
