@@ -27,9 +27,9 @@
 #define PWM_CHANNEL 0
 #endif
 
-static u32_t period = PERIOD_INIT;
+static uint32_t period = PERIOD_INIT;
 
-static u32_t note_periods[] = {
+static uint32_t note_periods[] = {
     1000000U / 988,		/* B */
     1000000U / 880,		/* A */
     1000000U / 784,		/* G */
@@ -43,7 +43,7 @@ static u32_t note_periods[] = {
 
 int app_buzzer_setup(void)
 {
-    struct device *pwm;
+    const struct device *pwm;
 
     pwm = device_get_binding(PWM_LABEL);
     if (NULL == pwm) {

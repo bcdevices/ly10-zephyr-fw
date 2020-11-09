@@ -72,8 +72,8 @@ SERVO_MOTOR_TARGETS := $(patsubst %,build.%/servo_motor/zephyr/zephyr.hex,$(BOAR
 SHELL_TARGETS := $(patsubst %,build.%/shell/zephyr/zephyr.hex,$(BOARDS_COMMON))
 
 ZEPHYR_SYSROOT := /usr/src/zephyrproject/zephyr
-#ZEPHYR_SYSROOT := /usr/src/zephyr-2.3.0/zephyr
-ZEPHYR_USRROOT := $(HOME)/src/zephyr-2.3.0/zephyr
+#ZEPHYR_SYSROOT := /usr/src/zephyr-2.4.0/zephyr
+ZEPHYR_USRROOT := $(HOME)/src/zephyr-2.4.0/zephyr
 
 build.%/blinky/zephyr/zephyr.hex:
 	mkdir -p build.$*/blinky
