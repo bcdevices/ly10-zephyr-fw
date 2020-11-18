@@ -20,6 +20,7 @@ GIT-VERSION-FILE:
 	@sh ./GIT-VERSION-GEN
 -include GIT-VERSION-FILE
 
+GIT_DESC := $(shell git describe --tags --always --dirty --match "v[0-9]*")
 VERSION_TAG := $(patsubst v%,%,$(GIT_DESC))
 
 DOCKER_BUILD_ARGS :=
