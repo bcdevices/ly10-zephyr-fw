@@ -16,7 +16,7 @@ DIST := $(BASE_PATH)/dist
 default: build
 
 .PHONY: GIT-VERSION-FILE
-GIT-VERSION-FILE: 
+GIT-VERSION-FILE:
 	@sh ./GIT-VERSION-GEN
 -include GIT-VERSION-FILE
 
@@ -118,7 +118,7 @@ build.%/shell/zephyr/zephyr.hex:
 	else echo "No Zephyr"; fi && \
 	west build --build-dir build.$*/shell \
 	  --board $* --pristine auto \
-	  $$ZEPHYR_BASE/samples/subsys/shell/shell_module 
+	  $$ZEPHYR_BASE/samples/subsys/shell/shell_module
 
 build.%/can/zephyr/zephyr.hex:
 	mkdir -p build.$*/can
@@ -200,9 +200,9 @@ dist: dist-clean dist-prep build
 	install -m 666 build.disco_l475_iot1/button/zephyr/zephyr.hex dist/zephyr-disco_l475_iot1-sample-button-$(VERSION_TAG).hex
 	install -m 666 build.disco_l475_iot1/gsm_modem/zephyr/zephyr.hex dist/zephyr-disco_l475_iot1-sample-gsm_modem-$(VERSION_TAG).hex
 	install -m 666 build.disco_l475_iot1/shell/zephyr/zephyr.hex dist/zephyr-disco_l475_iot1-sample-shell-$(VERSION_TAG).hex
-	install -m 666 build.ly10demo/app/zephyr/zephyr.hex dist/ly10-zephyr-fw-$(VERSION_TAG).hex 
-	install -m 666 build.ly10demo/app/zephyr/zephyr.elf dist/ly10-zephyr-fw-$(VERSION_TAG).elf 
-	install -m 666 build.ly10demo/app/zephyr/zephyr.map dist/ly10-zephyr-fw-$(VERSION_TAG).map 
+	install -m 666 build.ly10demo/app/zephyr/zephyr.hex dist/demo-board-zephyr-fw-$(VERSION_TAG).hex
+	install -m 666 build.ly10demo/app/zephyr/zephyr.elf dist/demo-board-zephyr-fw-$(VERSION_TAG).elf
+	install -m 666 build.ly10demo/app/zephyr/zephyr.map dist/demo-board-zephyr-fw-$(VERSION_TAG).map
 	#install -m 666 build.nrf52dk_nrf52832/servo_motor/zephyr/zephyr.hex dist/zephyr-nrf52dk_nrf528320-sample-servo_motor-$(VERSION_TAG).hex
 	install -m 666 build.nrf52dk_nrf52832/blinky/zephyr/zephyr.hex dist/zephyr-nrf52dk_nrf52832-sample-blinky-$(VERSION_TAG).hex
 	install -m 666 build.nrf52dk_nrf52832/button/zephyr/zephyr.hex dist/zephyr-nrf52dk_nrf52832-sample-button-$(VERSION_TAG).hex
@@ -227,7 +227,7 @@ dist: dist-clean dist-prep build
 	install -m 666 build.stm32f4_disco/can/zephyr/zephyr.hex dist/zephyr-stm32f4_disco-sample-can-$(VERSION_TAG).hex
 	#install -m 666 build.stm32f4_disco/gsm_modem/zephyr/zephyr.hex dist/zephyr-stm32f4_disco-sample-gsm_modem-$(VERSION_TAG).hex
 	install -m 666 build.stm32f4_disco/shell/zephyr/zephyr.hex dist/zephyr-stm32f4_disco-sample-shell-$(VERSION_TAG).hex
-	sed 's/{{VERSION}}/$(VERSION_TAG)/g' test-suites/suite-LY10-zephyr.yaml.template > dist/suite-LY10-zephyr-$(VERSION_TAG).yaml
+	sed 's/{{VERSION}}/$(VERSION_TAG)/g' test-suites/suite-demo-board-zephyr.yaml.template > dist/suite-demo-board-zephyr-$(VERSION_TAG).yaml
 
 .PHONY: deploy
 deploy:
