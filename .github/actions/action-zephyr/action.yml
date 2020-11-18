@@ -1,0 +1,5 @@
+name: 'Zephyr build'
+description: 'Build Zephyr projects'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
