@@ -15,7 +15,7 @@ suite:
   - ident: ICT-T3
     title: Program LY10-DEMO-BOARD FW
     steps:
-      - command: program nRF52 none,ly10-zephyr-fw-{{VERSION}}.hex,none
+      - command: program nRF52 none,demo-board-zephyr-fw-{{VERSION}}.hex,none
   - ident: ICT-T4
     title: BLE discovery
     steps:

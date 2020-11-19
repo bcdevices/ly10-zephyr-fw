@@ -13,3 +13,10 @@ jobs:
       env:
         API_TOKEN: ${{ secrets.API_TOKEN }}
         PROJECT_UUID: ${{ secrets.PROJECT_UUID }}
+    - uses: meeDamian/github-release@2.0
+      if: contains(github.ref, 'tags')
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        files: dist/*demo*
+        gzip: false
+
