@@ -1,0 +1,7 @@
+# 'dist' folder
+/dist
+.git
+/build
+/build.*
+/app/build
+/zephyrproject
