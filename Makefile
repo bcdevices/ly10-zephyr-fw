@@ -71,9 +71,9 @@ SERVO_MOTOR_TARGETS := $(patsubst %,build.%/servo_motor/zephyr/zephyr.hex,$(BOAR
 
 SHELL_TARGETS := $(patsubst %,build.%/shell/zephyr/zephyr.hex,$(BOARDS_COMMON))
 
-ZEPHYR_SYSROOT := /usr/src/zephyr-2.5.0-rc1/zephyr
-#ZEPHYR_SYSROOT := /usr/src/zephyr-2.5.0-rc1/zephyr
-ZEPHYR_USRROOT := $(HOME)/src/zephyr-2.5.0-rc1/zephyr
+ZEPHYR_SYSROOT := /usr/src/zephyr-2.5.0-rc3/zephyr
+#ZEPHYR_SYSROOT := /usr/src/zephyr-2.5.0-rc3/zephyr
+ZEPHYR_USRROOT := $(HOME)/src/zephyr-2.5.0-rc3/zephyr
 
 build.%/blinky/zephyr/zephyr.hex:
 	mkdir -p build.$*/blinky
@@ -182,7 +182,7 @@ clean:
 prereq:
 	pip3 install -r requirements.txt
 	install -d zephyrproject
-	cd zephyrproject && west init --mr v2.5.0-rc1
+	cd zephyrproject && west init --mr v2.5.0-rc3
 	cd zephyrproject && west update
 	pip3 install -r $(ZEPHYR_USRROOT)/scripts/requirements.txt
 
