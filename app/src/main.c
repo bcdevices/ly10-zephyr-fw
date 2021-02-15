@@ -1,52 +1,52 @@
-//
-// Copyright (c) 2019 Blue Clover Devices
-//
 // SPDX-License-Identifier: Apache-2.0
+
+//
+// Copyright (c) 2019-2021 Blue Clover Devices
 //
 
 /* main.c - Application main entry point */
 
 #include <zephyr.h>
 
-#define DELAY_TIME K_MSEC(100)
+#include "app_ble.h"
+#include "app_buzzer.h"
+#include "app_ledstrip.h"
+#include "app_sensor.h"
 
-extern int app_ble(void);
-extern int app_buzzer_setup(void);
-extern int app_ledstrip_setup(void);
-extern int app_ledstrip_run(void);
-extern int app_sensor_setup(void);
+#define DELAY_TIME K_MSEC(100)
 
 void main(void)
 {
-    /* Bluetooth */
-    int err;
-    err =  app_ble();
-    if (err) {
-        return;
-    }
+	int err;
 
-    /* LED strip control */
-    err =  app_ledstrip_setup();
-    if (err) {
-        return;
-    }
+	/* Bluetooth */
+	err =  app_ble();
+	if (err) {
+		return;
+	}
 
-    err = app_sensor_setup();
-    if (err) {
-	return;
-    }
+	/* LED strip control */
+	err =  app_ledstrip_setup();
+	if (err) {
+		return;
+	}
 
-    err = app_buzzer_setup();
-    if (err) {
-	return;
-    }
+	err = app_sensor_setup();
+	if (err) {
+		return;
+	}
 
-    while (1) {
-        err =  app_ledstrip_run();
-        if (err) {
-            return;
-        }
-	k_sleep(DELAY_TIME);
-    }
+	err = app_buzzer_setup();
+	if (err) {
+		return;
+	}
+
+	while (1) {
+		err =  app_ledstrip_run();
+		if (err) {
+			return;
+		}
+		k_sleep(DELAY_TIME);
+	}
 
 }

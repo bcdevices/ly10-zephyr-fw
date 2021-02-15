@@ -4,7 +4,7 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-FROM bcdevices/zephyr-west:zephyr-2.4.0-0
+FROM bcdevices/zephyr-west:zephyr-2.5.0-0
 
 ADD entrypoint.sh /entrypoint.sh
 
