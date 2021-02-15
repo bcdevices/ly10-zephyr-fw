@@ -1,9 +1,10 @@
+// SPDX-License-Identifier: Apache-2.0
+
 /*
  * Copyright (c) 2017 Shawn Nock <shawn@monadnock.ca>
  * Copyright (c) 2017 Linaro Limited
- * Copyright (c) 2019 Blue Clover Devices
+ * Copyright (c) 2019-2021 Blue Clover Devices
  *
- * SPDX-License-Identifier: Apache-2.0
  */
 
 /dts-v1/;
@@ -72,11 +73,11 @@ arduino_serial: &uart0 {
 	sda-pin = <12>;
 	scl-pin = <14>;
 
-        sht3xd@44 {
-                compatible = "sensirion,sht3xd";
-                reg = <0x44>;
-                label = "SHT3XD";
-        };
+	sht3xd@44 {
+		compatible = "sensirion,sht3xd";
+		reg = <0x44>;
+		label = "SHT3XD";
+	};
 };
 
 &i2c1 {
@@ -95,12 +96,12 @@ arduino_serial: &uart0 {
 };
 
 &sw_pwm {
-        timer-instance = <1>;
-        channel-count = <3>;
-        clock-prescaler = <0>;
-        ppi-base = <7>;
-        gpiote-base = <0>;
-        status = "disabled";
+	timer-instance = <1>;
+	channel-count = <3>;
+	clock-prescaler = <0>;
+	ppi-base = <7>;
+	gpiote-base = <0>;
+	status = "disabled";
 };
 
 &spi0 {
@@ -118,12 +119,12 @@ arduino_serial: &uart0 {
 	mosi-pin = <3>;
 	miso-pin = <27>; /* unused */
 
-        apa102@0 {
-                compatible = "apa,apa102";
-                reg = <0>;
-                spi-max-frequency = <5250000>;
-                label = "APA102";
-        };
+	apa102@0 {
+		compatible = "apa,apa102";
+		reg = <0>;
+		spi-max-frequency = <5250000>;
+		label = "APA102";
+	};
 };
 
 &spi2 {

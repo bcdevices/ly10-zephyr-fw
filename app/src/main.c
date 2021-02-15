@@ -1,7 +1,7 @@
-//
-// Copyright (c) 2019 Blue Clover Devices
-//
 // SPDX-License-Identifier: Apache-2.0
+
+//
+// Copyright (c) 2019-2021 Blue Clover Devices
 //
 
 /* main.c - Application main entry point */
@@ -18,35 +18,36 @@ extern int app_sensor_setup(void);
 
 void main(void)
 {
-    /* Bluetooth */
-    int err;
-    err =  app_ble();
-    if (err) {
-        return;
-    }
+	/* Bluetooth */
+	int err;
 
-    /* LED strip control */
-    err =  app_ledstrip_setup();
-    if (err) {
-        return;
-    }
+	err =  app_ble();
+	if (err) {
+		return;
+	}
 
-    err = app_sensor_setup();
-    if (err) {
-	return;
-    }
+	/* LED strip control */
+	err =  app_ledstrip_setup();
+	if (err) {
+		return;
+	}
 
-    err = app_buzzer_setup();
-    if (err) {
-	return;
-    }
+	err = app_sensor_setup();
+	if (err) {
+		return;
+	}
 
-    while (1) {
-        err =  app_ledstrip_run();
-        if (err) {
-            return;
-        }
-	k_sleep(DELAY_TIME);
-    }
+	err = app_buzzer_setup();
+	if (err) {
+		return;
+	}
+
+	while (1) {
+		err =  app_ledstrip_run();
+		if (err) {
+			return;
+		}
+		k_sleep(DELAY_TIME);
+	}
 
 }

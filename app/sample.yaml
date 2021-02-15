@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 sample:
   name: LY10 Demo
 tests:
