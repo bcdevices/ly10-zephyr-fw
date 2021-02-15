@@ -11,6 +11,8 @@
 #include <device.h>
 #include <drivers/sensor.h>
 
+#include "app_sensor.h"
+
 int app_sensor_setup(void)
 {
 	struct sensor_value temp, hum;

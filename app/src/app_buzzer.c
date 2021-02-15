@@ -10,6 +10,8 @@
 #include <device.h>
 #include <drivers/pwm.h>
 
+#include "app_buzzer.h"
+
 #define PERIOD_INIT    1500
 #define BUZZER_PIN     22
 #define BEEP_DURATION  K_MSEC(10)

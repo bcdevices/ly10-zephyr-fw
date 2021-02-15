@@ -1,4 +1,5 @@
 #!/bin/sh
+# SPDX-License-Identifier: Apache-2.0
 GVF=GIT-VERSION-FILE
 LF='
 '

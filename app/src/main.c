@@ -8,19 +8,18 @@
 
 #include <zephyr.h>
 
-#define DELAY_TIME K_MSEC(100)
+#include "app_ble.h"
+#include "app_buzzer.h"
+#include "app_ledstrip.h"
+#include "app_sensor.h"
 
-extern int app_ble(void);
-extern int app_buzzer_setup(void);
-extern int app_ledstrip_setup(void);
-extern int app_ledstrip_run(void);
-extern int app_sensor_setup(void);
+#define DELAY_TIME K_MSEC(100)
 
 void main(void)
 {
-	/* Bluetooth */
 	int err;
 
+	/* Bluetooth */
 	err =  app_ble();
 	if (err) {
 		return;

@@ -11,6 +11,8 @@
 #include <drivers/led_strip.h>
 #include <drivers/gpio.h>
 
+#include "app_ledstrip.h"
+
 #define GPIO_OUT_DRV_NAME "GPIO_0"
 #define GPIO_PWR_EN  25
 #define STRIP_NUM_LEDS 4
