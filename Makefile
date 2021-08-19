@@ -155,7 +155,7 @@ ZEPHYR_BOARD_ROOT := $(BASE_PATH)
 
 BOARDS_APP :=
 BOARDS_APP += ly10demo
-#BOARDS_APP := nrf52dk_nrf52832
+BOARDS_APP += blueclover_plt_demo_v2
 
 APP_TARGETS := $(patsubst %,build.%/app/zephyr/zephyr.hex,$(BOARDS_APP))
 
@@ -173,6 +173,9 @@ versions:
 
 .PHONY: build
 build: build-zephyr-samples $(APP_TARGETS)
+
+.PHONY: app
+app: $(APP_TARGETS)
 
 .PHONY: clean
 clean:
