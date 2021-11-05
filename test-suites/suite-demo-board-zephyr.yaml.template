@@ -1,26 +1,26 @@
-title: "Zephyr v{{VERSION}}"
+title: "pltdemov1 Zephyr v{{VERSION}}"
 suite:
-  - ident: ICT-T0
-    title: Power on
-    steps:
-      - command: power SWD on
-  - ident: ICT-T1
-    title: Identify DUT
-    steps:
-      - command: identify nRF52
-  - ident: ICT-T2
-    title: Erase nRF52
-    steps:
-      - command: erase nRF52
-  - ident: ICT-T3
-    title: Program LY10-DEMO-BOARD FW
-    steps:
-      - command: program nRF52 none,demo-board-zephyr-fw-{{VERSION}}.hex,none
-  - ident: ICT-T4
-    title: BLE discovery
-    steps:
-      - command: bledis %BLEMAC% 5
-  - ident: ICT-T5
-    title: Power off
-    steps:
-      - command: power off
+- ident: ICT-T0
+  title: Power on
+  steps:
+  - command: power SWD on
+- ident: ICT-T1
+  title: Identify DUT
+  steps:
+  - command: identify nRF52
+- ident: ICT-T2
+  title: Erase nRF52
+  steps:
+  - command: erase nRF52
+- ident: ICT-T3
+  title: Program PLTDemoV1 board FW
+  steps:
+  - command: program nRF52 pltdemov1-zephyr-fw-{{VERSION}}.hex
+- ident: ICT-T4
+  title: BLE discovery
+  steps:
+  - command: bledis %BLEMAC% 5
+- ident: ICT-T5
+  title: Power off
+  steps:
+  - command: power off
