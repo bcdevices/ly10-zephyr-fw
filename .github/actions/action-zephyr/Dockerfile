@@ -1,7 +1,7 @@
 #
 # Copyright (c) 2019-2021 Blue Clover Devices
 #
-# SPDX-License-Identifier: None
+# SPDX-License-Identifier: Apache-2.0
 #
 
 FROM ghcr.io/bcdevices/zephyr:2.7.0-1

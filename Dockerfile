@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: None
+# SPDX-License-Identifier: Apache-2.0
 #
 # Copyright (c) 2020-2021 Blue Clover Devices
 
