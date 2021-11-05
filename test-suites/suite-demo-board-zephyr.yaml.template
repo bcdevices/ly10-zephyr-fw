@@ -1,4 +1,4 @@
-title: "pltdemov1 Zephyr v{{VERSION}}"
+title: "Demo v{{VERSION}}"
 suite:
 - ident: ICT-T0
   title: Power on
@@ -15,7 +15,7 @@ suite:
 - ident: ICT-T3
   title: Program PLTDemoV1 board FW
   steps:
-  - command: program nRF52 pltdemov1-zephyr-fw-{{VERSION}}.hex
+  - command: program nRF52 app-pltdemov1-{{VERSION}}.hex
 - ident: ICT-T4
   title: BLE discovery
   steps:

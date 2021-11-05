@@ -77,9 +77,9 @@ dist-clean:
 
 .PHONY: dist
 dist: dist-clean dist-prep build
-	install -m 666 build.ly10demo/app/zephyr/zephyr.hex dist/pltdemov1-zephyr-fw-$(VERSION_TAG).hex
-	install -m 666 build.ly10demo/app/zephyr/zephyr.elf dist/pltdemov1-zephyr-fw-$(VERSION_TAG).elf
-	install -m 666 build.ly10demo/app/zephyr/zephyr.map dist/pltdemov1-zephyr-fw-$(VERSION_TAG).map
+	install -m 666 build.ly10demo/app/zephyr/zephyr.hex dist/app-pltdemov1-$(VERSION_TAG).hex
+	install -m 666 build.ly10demo/app/zephyr/zephyr.elf dist/app-pltdemov1-$(VERSION_TAG).elf
+	install -m 666 build.ly10demo/app/zephyr/zephyr.map dist/app-pltdemov1-$(VERSION_TAG).map
 	sed 's/{{VERSION}}/$(VERSION_TAG)/g' test-suites/suite-demo-board-zephyr.yaml.template > dist/suite-demo-board-zephyr-$(VERSION_TAG).yaml
 
 .PHONY: deploy
