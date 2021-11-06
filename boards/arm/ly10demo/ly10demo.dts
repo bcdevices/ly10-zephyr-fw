@@ -95,15 +95,6 @@ arduino_serial: &uart0 {
 	ch0-inverted;
 };
 
-&sw_pwm {
-	timer-instance = <1>;
-	channel-count = <3>;
-	clock-prescaler = <0>;
-	ppi-base = <7>;
-	gpiote-base = <0>;
-	status = "disabled";
-};
-
 &spi0 {
 	compatible = "nordic,nrf-spi";
 	/* status = "okay"; */

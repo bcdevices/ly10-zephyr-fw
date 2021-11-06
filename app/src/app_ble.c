@@ -62,7 +62,7 @@ int app_ble(void)
 	// Get MAC Address
 	// '1' as first parameter indicates we are seeking the 'random'
 	// BD address
-	uint8_t *bd_addr = (uint8_t *) ll_addr_get(1, NULL);
+	uint8_t *bd_addr = (uint8_t *) ll_addr_get(1);
 
 	printk("Random BD Address: %02x:%02x:%02x:%02x:%02x:%02x\n",
 	       bd_addr[5], bd_addr[4], bd_addr[3],
