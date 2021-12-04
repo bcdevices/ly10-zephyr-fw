@@ -6,6 +6,7 @@
 
 /* main.c - Application main entry point */
 
+#include <stdio.h>
 #include <zephyr.h>
 
 #include "app_ble.h"
@@ -31,9 +32,14 @@ void main(void)
 		return;
 	}
 
-	err = app_sensor_setup();
+	err = app_sensor_evironmental_setup();
 	if (err) {
-		return;
+		printf("app_sensor_evironmental_setup() failed, err=%d\n", err);
+	}
+
+	err = app_sensor_motion_setup();
+	if (err) {
+		printf("app_sensor_motion_setup() failed, err=%d\n", err);
 	}
 
 	err = app_buzzer_setup();
