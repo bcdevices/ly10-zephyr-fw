@@ -36,7 +36,7 @@ ZEPHYR_BOARD_ROOT := $(BASE_PATH)
 
 BOARDS_APP :=
 BOARDS_APP += ly10demo
-#BOARDS_APP := nrf52dk_nrf52832
+BOARDS_APP += blueclover_plt_demo_v2_nrf52832
 
 APP_TARGETS := $(patsubst %,build.%/app/zephyr/zephyr.hex,$(BOARDS_APP))
 
