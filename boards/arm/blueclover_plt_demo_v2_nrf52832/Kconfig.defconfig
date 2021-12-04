@@ -1,7 +1,6 @@
 # Blue Clover PLT Demo V2 Configuration
-#
+
 # Copyright (c) 2021 Blue Clover
-#
 # SPDX-License-Identifier: Apache-2.0
 
 if BOARD_BLUECLOVER_PLT_DEMO_V2_NRF52832
