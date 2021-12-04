@@ -1,10 +1,10 @@
 # ly10-zephyr-fw
 
-Zephyr-based firmware for LY10DEMO
+Zephyr-based firmware for LY10DEMO and PLT Demo V2
 
 - Build platform: macOS, Linux
-- Host platform: LY10DEMO(nRF52)
-- Target platform: LY10DEMO(nRF52)
+- Host platform: LY10DEMO(nRF52), PLT Demo V2 (nRF52)
+- Target platform: LY10DEMO(nRF52), PLT Demo V2 (nRF52)
 
 ## Docker build
 

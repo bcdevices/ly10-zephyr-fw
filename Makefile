@@ -80,7 +80,11 @@ dist: dist-clean dist-prep build
 	install -m 666 build.ly10demo/app/zephyr/zephyr.hex dist/app-pltdemov1-$(VERSION_TAG).hex
 	install -m 666 build.ly10demo/app/zephyr/zephyr.elf dist/app-pltdemov1-$(VERSION_TAG).elf
 	install -m 666 build.ly10demo/app/zephyr/zephyr.map dist/app-pltdemov1-$(VERSION_TAG).map
-	sed 's/{{VERSION}}/$(VERSION_TAG)/g' test-suites/suite-demo-board-zephyr.yaml.template > dist/suite-demo-board-zephyr-$(VERSION_TAG).yaml
+	sed 's/{{BOARD}}/pltdemov1/g; s/{{VERSION}}/$(VERSION_TAG)/g' test-suites/suite-demo-board-zephyr.yaml.template > dist/suite-pltdemov1-board-zephyr-$(VERSION_TAG).yaml
+	install -m 666 build.blueclover_plt_demo_v2_nrf52832/app/zephyr/zephyr.hex dist/app-pltdemov2-$(VERSION_TAG).hex
+	install -m 666 build.blueclover_plt_demo_v2_nrf52832/app/zephyr/zephyr.elf dist/app-pltdemov2-$(VERSION_TAG).elf
+	install -m 666 build.blueclover_plt_demo_v2_nrf52832/app/zephyr/zephyr.map dist/app-pltdemov2-$(VERSION_TAG).map
+	sed 's/{{BOARD}}/pltdemov2/g; s/{{VERSION}}/$(VERSION_TAG)/g' test-suites/suite-demo-board-zephyr.yaml.template > dist/suite-pltdemov2-board-zephyr-$(VERSION_TAG).yaml
 
 .PHONY: deploy
 deploy:
