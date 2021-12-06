@@ -15,7 +15,7 @@ suite:
 - ident: ICT-T3
   title: Program PLTDemoV1 board FW
   steps:
-  - command: program nRF52 app-pltdemov1-{{VERSION}}.hex
+  - command: program nRF52 app-{{BOARD}}-{{VERSION}}.hex
 - ident: ICT-T4
   title: BLE discovery
   steps:
