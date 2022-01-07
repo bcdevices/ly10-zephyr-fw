@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2019 Blue Clover Devices
+# Copyright (c) 2019-2022 Blue Clover Devices
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -35,7 +35,6 @@ ZEPHYR_USRROOT := $(HOME)/src/zephyr-$(ZEPHYR_TAG)/zephyr
 ZEPHYR_BOARD_ROOT := $(BASE_PATH)
 
 BOARDS_APP :=
-BOARDS_APP += ly10demo
 BOARDS_APP += blueclover_plt_demo_v2_nrf52832
 
 APP_TARGETS := $(patsubst %,build.%/app/zephyr/zephyr.hex,$(BOARDS_APP))
@@ -77,10 +76,6 @@ dist-clean:
 
 .PHONY: dist
 dist: dist-clean dist-prep build
-	install -m 666 build.ly10demo/app/zephyr/zephyr.hex dist/app-pltdemov1-$(VERSION_TAG).hex
-	install -m 666 build.ly10demo/app/zephyr/zephyr.elf dist/app-pltdemov1-$(VERSION_TAG).elf
-	install -m 666 build.ly10demo/app/zephyr/zephyr.map dist/app-pltdemov1-$(VERSION_TAG).map
-	sed 's/{{BOARD}}/pltdemov1/g; s/{{VERSION}}/$(VERSION_TAG)/g' test-suites/suite-demo-board-zephyr.yaml.template > dist/suite-pltdemov1-board-zephyr-$(VERSION_TAG).yaml
 	install -m 666 build.blueclover_plt_demo_v2_nrf52832/app/zephyr/zephyr.hex dist/app-pltdemov2-$(VERSION_TAG).hex
 	install -m 666 build.blueclover_plt_demo_v2_nrf52832/app/zephyr/zephyr.elf dist/app-pltdemov2-$(VERSION_TAG).elf
 	install -m 666 build.blueclover_plt_demo_v2_nrf52832/app/zephyr/zephyr.map dist/app-pltdemov2-$(VERSION_TAG).map
