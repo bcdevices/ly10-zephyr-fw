@@ -28,7 +28,7 @@ DOCKER_BUILD_ARGS += --network=host
 DOCKER_RUN_ARGS :=
 DOCKER_RUN_ARGS += --network=none
 
-ZEPHYR_TAG := 2.7.0
+ZEPHYR_TAG := 2.7.1
 ZEPHYR_SYSROOT := /usr/src/zephyr-$(ZEPHYR_TAG)/zephyr
 ZEPHYR_USRROOT := $(HOME)/src/zephyr-$(ZEPHYR_TAG)/zephyr
 
