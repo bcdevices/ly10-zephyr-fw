@@ -1,8 +1,8 @@
 # SPDX-License-Identifier: Apache-2.0
 #
-# Copyright (c) 2020-2021 Blue Clover Devices
+# Copyright (c) 2020-2022 Blue Clover Devices
 
-FROM ghcr.io/bcdevices/zephyr:2.7.0-1
+FROM ghcr.io/bcdevices/zephyr:2.7.1-0
 
 WORKDIR /usr/src/
 ## Copy everything (use .dockerignore to exclude)
