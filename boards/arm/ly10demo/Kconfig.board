@@ -1,9 +1,0 @@
-# Kconfig - nRF52 LY10DEMO configuration
-#
-# Copyright (c) 2019 Blue Clover Devices
-#
-# SPDX-License-Identifier: Apache-2.0
-
-config  BOARD_LY10DEMO
-	bool "LY10DEMO"
-	depends on SOC_NRF52832_QFAA
