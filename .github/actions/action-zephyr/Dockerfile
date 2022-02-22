@@ -4,7 +4,7 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-FROM ghcr.io/bcdevices/zephyr:2.7.1-0
+FROM ghcr.io/bcdevices/zephyr:3.0.0-0
 
 WORKDIR /usr/src/
 

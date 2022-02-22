@@ -28,11 +28,9 @@ DOCKER_BUILD_ARGS += --network=host
 DOCKER_RUN_ARGS :=
 DOCKER_RUN_ARGS += --network=none
 
-ZEPHYR_TAG := 2.7.1
+ZEPHYR_TAG := 3.0.0
 ZEPHYR_SYSROOT := /usr/src/zephyr-$(ZEPHYR_TAG)/zephyr
 ZEPHYR_USRROOT := $(HOME)/src/zephyr-$(ZEPHYR_TAG)/zephyr
-
-ZEPHYR_BOARD_ROOT := $(BASE_PATH)
 
 BOARDS_APP :=
 BOARDS_APP += blueclover_plt_demo_v2_nrf52832
@@ -44,7 +42,7 @@ build.%/app/zephyr/zephyr.hex:
 	elif [ -d $(ZEPHYR_SYSROOT) ]; then source $(ZEPHYR_SYSROOT)/zephyr-env.sh ; \
 	else echo "No Zephyr"; fi && \
           west build --build-dir build.$*/app --pristine auto \
-	  --board $* app -- -DBOARD_ROOT="$(ZEPHYR_BOARD_ROOT)"
+	  --board $* app
 
 .PHONY: versions
 versions:
