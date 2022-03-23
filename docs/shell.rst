@@ -74,7 +74,7 @@ Subcommands:
 gpio conf: Configure GPIO
 =========================
 
-.. code-block: shell
+.. code-block:: shell
 
    plt-demo:~$ gpio conf GPIO_0 1 out
    Configuring GPIO_0 pin 1
