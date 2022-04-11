@@ -6,22 +6,25 @@ jobs:
     name: Zephyr build action
     runs-on: ubuntu-latest
     steps:
-    - name: checkout
-      uses: actions/checkout@master
-    - name: Gen version
-      run:  ./GIT-VERSION-GEN
-    - name: build zepyhr
-      uses: ./.github/actions/action-zephyr
-    - name: PLTcloud
-      uses: ./.github/actions/action-pltcloud
-      if: contains(github.ref, 'tags')
-      env:
-        API_TOKEN: ${{ secrets.API_TOKEN }}
-        PROJECT_UUID: ${{ secrets.PROJECT_UUID }}
-    - name: Publish release
-      uses: meeDamian/github-release@2.0
-      if: contains(github.ref, 'tags')
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        files: dist/*demo*
-        gzip: false
+      - name: checkout
+        uses: actions/checkout@master
+      - name: Gen version
+        run: ./GIT-VERSION-GEN
+      - name: build zepyhr
+        uses: ./.github/actions/action-zephyr
+      - name: PLTcloud upload
+        uses: bcdevices/pltcloud-upload
+        with:
+          files: dist/*demo*
+          api_token: ${{ secrets.API_TOKEN }}
+          project_uuid: ${{ secrets.PROJECT_UUID }}
+          version: test
+          # if: contains(github.ref, 'tags')
+      - name: Publish release
+        uses: meeDamian/github-release@2.0
+        if: contains(github.ref, 'tags')
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          files: dist/*demo*
+          gzip: false
+          version: ${{ github.ref }}
