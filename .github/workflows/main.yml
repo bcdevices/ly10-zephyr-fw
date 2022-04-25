@@ -13,10 +13,10 @@ jobs:
       - name: build zepyhr
         uses: ./.github/actions/action-zephyr
       - name: Checkout bcdevices/pltcloud-upload
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: bcdevices/pltcloud-upload
-          ref: refs/heads/ci-flow
+          ref: ci-flow
           path: ./.github/actions/pltcloud-upload
       - name: PLTcloud upload
         uses: ./.github/actions/pltcloud-upload
