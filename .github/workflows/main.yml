@@ -12,6 +12,8 @@ jobs:
         run: ./GIT-VERSION-GEN
       - name: build zepyhr
         uses: ./.github/actions/action-zephyr
+      - name: LS
+        run: ls ./dist/
       - name: Checkout bcdevices/pltcloud-upload
         uses: actions/checkout@v3
         with:
@@ -21,7 +23,7 @@ jobs:
       - name: PLTcloud upload
         uses: ./.github/actions/pltcloud-upload
         with:
-          files: dist/*demo*
+          files: ./dist/*demo*
           api_token: ${{ secrets.API_TOKEN }}
           project_uuid: ${{ secrets.PROJECT_UUID }}
           version: test
