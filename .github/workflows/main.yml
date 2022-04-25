@@ -27,7 +27,14 @@ jobs:
           api_token: ${{ secrets.API_TOKEN }}
           project_uuid: ${{ secrets.PROJECT_UUID }}
           version: test
-          # if: contains(github.ref, 'tags')
+          verbose: true
+          deployment_group_uuid: 65397489-8e51-44b5-aa95-ca978afcb921
+          auto_deploy: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          repository_owner: ${{ github.repository_owner }}
+          sha: ${{ github.sha }}
+            # if: contains(github.ref, 'tags')
       - name: Publish release
         uses: meeDamian/github-release@2.0
         if: contains(github.ref, 'tags')
