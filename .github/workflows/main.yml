@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: bcdevices/pltcloud-upload
-          ref: ci-flow
+          ref: ci_flow
           path: ./.github/actions/pltcloud-upload
       - name: PLTcloud upload
         uses: ./.github/actions/pltcloud-upload
