@@ -7,13 +7,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
-        uses: actions/checkout@master
+        uses: actions/checkout@v2
       - name: Gen version
         run: ./GIT-VERSION-GEN
       - name: build zepyhr
         uses: ./.github/actions/action-zephyr
+      - name: Checkout bcdevices/pltcloud-upload
+        uses: actions/checkout@v2
+        with:
+          repository: bcdevices/pltcloud-upload
+          ref: refs/heads/ci-flow
+          path: ./.github/actions/pltcloud-upload
       - name: PLTcloud upload
-        uses: bcdevices/pltcloud-upload@ci-flow
+        uses: ./.github/actions/pltcloud-upload
         with:
           files: dist/*demo*
           api_token: ${{ secrets.API_TOKEN }}
