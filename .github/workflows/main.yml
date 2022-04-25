@@ -13,7 +13,7 @@ jobs:
       - name: build zepyhr
         uses: ./.github/actions/action-zephyr
       - name: PLTcloud upload
-        uses: bcdevices/pltcloud-upload@main
+        uses: bcdevices/pltcloud-upload@ci-flow
         with:
           files: dist/*demo*
           api_token: ${{ secrets.API_TOKEN }}
