@@ -26,9 +26,9 @@ jobs:
           files: ./dist/*demo*
           api_token: ${{ secrets.API_TOKEN }}
           project_uuid: ${{ secrets.PROJECT_UUID }}
-          version: test
+          version: ${{ github.sha }} 
           verbose: true
-          deployment_group_uuid: 65397489-8e51-44b5-aa95-ca978afcb921
+          deployment_group_uuid: fdd95a43-11e8-44ee-86ad-e5367f17262e
           auto_deploy: true
           github_token: ${{ secrets.GITHUB_TOKEN }}
           repository: ${{ github.repository }}
