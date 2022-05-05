@@ -19,9 +19,9 @@ jobs:
         with:
           repository: bcdevices/pltcloud-action
           ref: ci_flow
-          path: ./.github/actions/pltcloud-action
+          path: ./.github/actions/pltcloud-action-v2
       - name: PLTcloud upload
-        uses: ./.github/actions/pltcloud-action
+        uses: ./.github/actions/pltcloud-action-v2
         with:
           files: ./dist/*demo*
           api_token: ${{ secrets.API_TOKEN }}
