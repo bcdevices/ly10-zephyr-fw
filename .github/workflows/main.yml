@@ -23,17 +23,17 @@ jobs:
       - name: PLTcloud upload
         uses: ./.github/actions/pltcloud-action-v2
         with:
-          files: ./dist/*demo*
-          api_token: ${{ secrets.API_TOKEN }}
-          project_uuid: 5542558e-cb25-11ec-879a-024f4387ee42
-          version: ${{ github.sha }}
-          verbose: true
-          deployment_group_uuid: fdd95a43-11e8-44ee-86ad-e5367f17262e
-          auto_deploy: true
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          repository: ${{ github.repository }}
-          repository_owner: ${{ github.repository_owner }}
-          sha: ${{ github.sha }}
+          FILES: ./dist/*demo*
+          API_TOKEN: ${{ secrets.API_TOKEN }}
+          PROJECT_UUID: 5542558e-cb25-11ec-879a-024f4387ee42
+          VERSION: ${{ github.sha }}
+          VERBOSE: true
+          DEPLOYMENT_GROUP_UUID: fdd95a43-11e8-44ee-86ad-e5367f17262e
+          AUTO_DEPLOY: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPOSITORY: ${{ github.repository }}
+          REPOSITORY_OWNER: ${{ github.repository_owner }}
+          SHA: ${{ github.sha }}
             # if: contains(github.ref, 'tags')
       - name: Publish release
         uses: meeDamian/github-release@2.0
