@@ -28,7 +28,7 @@ jobs:
           project_uuid: 5542558e-cb25-11ec-879a-024f4387ee42
           version: ${{ github.sha }}
           verbose: true
-          deployment_group_uuid: 0931a7e5-7b88-4f4b-a9f5-3b6631bb6ede
+          deployment_group_uuid: fdd95a43-11e8-44ee-86ad-e5367f17262e
           auto_deploy: true
           github_token: ${{ secrets.GITHUB_TOKEN }}
           repository: ${{ github.repository }}
