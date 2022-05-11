@@ -14,14 +14,8 @@ jobs:
         uses: ./.github/actions/action-zephyr
       - name: LS
         run: ls ./dist/
-      - name: Checkout bcdevices/pltcloud-action
-        uses: actions/checkout@v3
-        with:
-          repository: bcdevices/pltcloud-action
-          ref: ci_flow_defaults
-          path: ./.github/actions/pltcloud-action-v2
       - name: PLTcloud upload
-        uses: ./.github/actions/pltcloud-action-v2
+        uses: bcdcevics/pltcloud-action@v1.1.0
         with:
           FILES: ./dist/*demo*
           API_TOKEN: ${{ secrets.API_TOKEN }}
@@ -29,7 +23,6 @@ jobs:
           VERBOSE: true
           DEPLOYMENT_GROUP_UUID: fdd95a43-11e8-44ee-86ad-e5367f17262e
           AUTO_DEPLOY: true
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             # if: contains(github.ref, 'tags')
       - name: Publish release
         uses: meeDamian/github-release@2.0
