@@ -15,7 +15,7 @@ jobs:
       - name: LS
         run: ls ./dist/
       - name: PLTcloud upload
-        uses: bcdcevics/pltcloud-action@v1.1.0
+        uses: bcdevices/pltcloud-action@v1.1.0
         with:
           FILES: ./dist/*demo*
           API_TOKEN: ${{ secrets.API_TOKEN }}
