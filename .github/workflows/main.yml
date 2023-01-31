@@ -13,11 +13,13 @@ jobs:
     - name: build zepyhr
       uses: ./.github/actions/action-zephyr
     - name: PLTcloud
-      uses: ./.github/actions/action-pltcloud
+      uses: bcdevices/pltcloud-action@v1
       if: contains(github.ref, 'tags')
-      env:
+      with:
         API_TOKEN: ${{ secrets.API_TOKEN }}
         PROJECT_UUID: ${{ secrets.PROJECT_UUID }}
+        FILES: ./dist/*demo*
+        VERSION: ${{ github.ref }}
     - name: Publish release
       uses: meeDamian/github-release@2.0
       if: contains(github.ref, 'tags')
