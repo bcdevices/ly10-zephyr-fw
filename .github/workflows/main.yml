@@ -13,7 +13,7 @@ jobs:
     - name: build zepyhr
       uses: ./.github/actions/action-zephyr
     - name: PLTcloud
-      uses: bcdevices/pltcloud-action@v1.1.3
+      uses: bcdevices/pltcloud-action@v1.1.4
       if: contains(github.ref, 'tags')
       with:
         API_TOKEN: ${{ secrets.API_TOKEN }}
