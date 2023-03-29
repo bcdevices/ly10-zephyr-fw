@@ -1,10 +1,10 @@
 # ly10-zephyr-fw
 
-Zephyr-based firmware PLT Demo V2
+Zephyr-based firmware PLT Demo (v2)
 
 - Build platform: macOS, Linux
-- Host platform: PLT Demo V2 (nRF52)
-- Target platform: PLT Demo V2 (nRF52)
+- Host platform: PLT Demo (v2) (nRF52)
+- Target platform: PLT Demo (v2) (nRF52)
 
 ## Docker build
 
@@ -52,3 +52,25 @@ to end up with build artifacts in `dist/`
     - `export GNUARMEMB_TOOLCHAIN_PATH="/Applications/ARM"`
 - `make prereq` to install build pre-requisites
 - `make dist` to end up with build artifacts in `dist/`
+
+## Links
+
+- PLT Demo Board Product page:
+
+  [PLT Demo Board – Blue Clover Devices](https://bcdevices.com/products/plt-demo-board)
+
+- PLT Demo Board Reference documentation:
+
+  [PLT Demo Board (v2) — PLT Documentation](https://docs.pltcloud.com/acc/pltdemov2/)
+
+- Design files for the PLT Demo board:
+
+  [plt-docs/PLT-DEMOv2 · bcdevices/plt-docs](https://github.com/bcdevices/plt-docs/tree/main/PLT-DEMOv2)
+
+- Zephyr Project documentation:
+
+  [Blue Clover PLT Demo V2 nRF52832 — Zephyr Project Documentation](https://docs.zephyrproject.org/latest/boards/arm/blueclover_plt_demo_v2_nrf52832/doc/index.html)
+
+- Cloud-based simulator for the PLT Demo (v2) board:
+
+  [Renodepedia - blueclover\_plt\_demo\_v2\_nrf52832](https://zephyr-dashboard.renode.io/renodepedia/boards/blueclover_plt_demo_v2_nrf52832/)
