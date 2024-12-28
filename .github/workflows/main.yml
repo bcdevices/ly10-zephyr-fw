@@ -6,6 +6,12 @@ jobs:
     name: Zephyr build action
     runs-on: ubuntu-latest
     steps:
+    - name: PLTcloud Access Check
+      uses: bcdevices/pltcloud-action@v1.1.4
+      with:
+        API_TOKEN: ${{ secrets.API_TOKEN }}
+        PROJECT_UUID: ${{ secrets.PROJECT_UUID }}
+        VERBOSE: 'true'
     - name: checkout
       uses: actions/checkout@v4
     - name: Gen version
@@ -20,6 +26,7 @@ jobs:
         PROJECT_UUID: ${{ secrets.PROJECT_UUID }}
         FILES: ./dist/*demo*
         VERSION: ${{ github.ref }}
+        VERBOSE: 'true'
     - name: Publish release
       uses: meeDamian/github-release@2.0
       if: contains(github.ref, 'tags')
