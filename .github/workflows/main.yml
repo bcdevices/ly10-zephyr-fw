@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: PLTcloud Access Check
-      uses: bcdevices/pltcloud-action@v1.1.4
+      uses: bcdevices/pltcloud-action@v1.1.5
       with:
         API_TOKEN: ${{ secrets.API_TOKEN }}
         PROJECT_UUID: ${{ secrets.PROJECT_UUID }}
@@ -19,7 +19,7 @@ jobs:
     - name: build zepyhr
       uses: ./.github/actions/action-zephyr
     - name: PLTcloud
-      uses: bcdevices/pltcloud-action@v1.1.4
+      uses: bcdevices/pltcloud-action@v1.1.5
       if: contains(github.ref, 'tags')
       with:
         API_TOKEN: ${{ secrets.API_TOKEN }}
